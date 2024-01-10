@@ -1,0 +1,187 @@
+[
+  {
+    "ID": "Q1",
+    "category": "partA",
+    "question": "A feeling you're constantly racing from one task to the next?" 
+  },
+  {
+    "ID": "Q2",
+    "category": "partA",
+    "question": "Feeling wired yet tired?" 
+  },
+  {
+    "ID": "Q3",
+    "category": "partA",
+    "question": "A struggle coming down before bedtime, or a second wind that keeps you up late?" 
+  },
+  {
+    "ID": "Q4",
+    "category": "partA",
+    "question": "Difficulty falling asleep or disrupted sleep?" 
+  },
+  {
+    "ID": "Q5",
+    "category": "partA",
+    "question": "A feeling of anxiety or nervousness - can't stop worrying about things beyond your control?" 
+  },
+  {
+    "ID": "Q6",
+    "category": "partA",
+    "question": "A quickness to feel anger or rage - frequent screaming or yelling?" 
+  },
+  {
+    "ID": "Q7",
+    "category": "partA",
+    "question": "Memory lapses or feeling distracted, especially under duress?" 
+  },
+  {
+    "ID": "Q8",
+    "category": "partA",
+    "question": "Sugar cravings (you need \"a little something\" after each meal, usually of the chocolate variety?" 
+  },
+  {
+    "ID": "Q9",
+    "category": "partA",
+    "question": "Increase abdominal circumference, greater than 35 inches (the dreaded abdominal fat, or muffin top - not bloating)?" 
+  },
+  {
+    "ID": "Q10",
+    "category": "partA",
+    "question": "Skin conditions such as eczema or thin skin (sometimes physiologically and psychologically)?" 
+  },
+  {
+    "ID": "Q11",
+    "category": "partA",
+    "question": "Bone loss (perhaps your doctor uses scarier terms, such as osteopenia or osteoporosis)?" 
+  },
+  {
+    "ID": "Q12",
+    "category": "partA",
+    "question": "High blood pressure or rapid heartbeat unrelated to those cute red shoes in the store window?" 
+  },
+  {
+    "ID": "Q13",
+    "category": "partA",
+    "question": "High blood sugar (maybe your clinician has mentioned the words prediabetes or even diabetes or insulin resistance)? Shakiness between meals, also known as blood sugar instability?" 
+  },
+  {
+    "ID": "Q14",
+    "category": "partA",
+    "question": "Indigestion, ulcers, or GERD (gastroesophageal reflux disease)?" 
+  },
+  {
+    "ID": "Q15",
+    "category": "partA",
+    "question": "More difficulty recovering from physical injury than in the past?" 
+  },
+  {
+    "ID": "Q16",
+    "category": "partA",
+    "question": "Unexplained pink to purple stretch marks on your belly or back?" 
+  },
+  {
+    "ID": "Q17",
+    "category": "partA",
+    "question": "Irregular menstrual cycles?" 
+  },
+  {
+    "ID": "Q18",
+    "category": "partA",
+    "question": "Decreased fertility?" 
+  },
+  {
+    "ID": "Q19",
+    "category": "partB",
+    "question": "Fatigue or burnout (you use caffeine to bolster your energy, or fall asleep while reading or watching a movie)?" 
+  },
+  {
+    "ID": "Q20",
+    "category": "partB",
+    "question": "Loss of stamina, particularly in the afternoon, from two to five?" 
+  },
+  {
+    "ID": "Q21",
+    "category": "partB",
+    "question": "An atypical addiction to a negative point of view?" 
+  },
+  {
+    "ID": "Q22",
+    "category": "partB",
+    "question": "Crying jags for no particular reason?" 
+  },
+  {
+    "ID": "Q23",
+    "category": "partB",
+    "question": "Decreased problem-solving ability?" 
+  },
+  {
+    "ID": "Q24",
+    "category": "partB",
+    "question": "Feeling stressed most of the time (everything seems harder than before, and you have trouble copying)? Decreased stress tolerance?" 
+  },
+  {
+    "ID": "Q25",
+    "category": "partB",
+    "question": "Insomnia or difficulty staying asleep, especially between one and four in the morning?" 
+  },
+  {
+    "ID": "Q26",
+    "category": "partB",
+    "question": "Low blood pressure (not always a good thing, since your blood pressure determines the correct amount of oxygen to send through your body, especially into your brain)?" 
+  },
+  {
+    "ID": "Q27",
+    "category": "partB",
+    "question": "Postural hypotension (you stand up from lying down and feel dizzy)?" 
+  },
+  {
+    "ID": "Q28",
+    "category": "partB",
+    "question": "Difficulty fighting infection (you catch every virus you meet, particularly respiratory)? Difficulty recovering from illness or surgery or healing wounds?" 
+  },
+  {
+    "ID": "Q29",
+    "category": "partB",
+    "question": "Asthma? Bronchitis? Chronic cough? Allergies?" 
+  },
+  {
+    "ID": "Q30",
+    "category": "partB",
+    "question": "Low or unstable blood sugar?" 
+  },
+  {
+    "ID": "Q31",
+    "category": "partB",
+    "question": "Salt cravings?" 
+  },
+  {
+    "ID": "Q32",
+    "category": "partB",
+    "question": "Excess sweating?" 
+  },
+  {
+    "ID": "Q33",
+    "category": "partB",
+    "question": "Nausea, vomiting, or diarrhea? Or loose stool alternating with constipation?" 
+  },
+  {
+    "ID": "Q34",
+    "category": "partB",
+    "question": "Muscle weakness, especially around the knee? Muscle or joint pain?" 
+  },
+  {
+    "ID": "Q35",
+    "category": "partB",
+    "question": "Hemorrhoids or varicose veins?" 
+  },
+  {
+    "ID": "Q36",
+    "category": "partB",
+    "question": "Your blood seems to pool easily, or your skin bruises easily?" 
+  },
+  {
+    "ID": "Q37",
+    "category": "partB",
+    "question": "A thyroid problem that's been treated, you feel better, and suddenly you feel palpitations or have rapid or irregular hearbeats (a sign of a low cortisol/low thyroid combo)?" 
+  }
+]

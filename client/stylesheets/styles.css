@@ -1,0 +1,110 @@
+:root {
+  --main-green-color: #92D050;
+  --darker-green-color: #6CA72D;
+}
+
+body {
+  font-family: 'Poppins', 'sans-serif';
+}
+
+.questions-grid, h1, h4 {
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.questionnaire-sticky-header h1 {
+  padding-top: 30px;
+}
+.questionnaire-sticky-header h4 {
+  padding-bottom: 23px;
+}
+
+.questions-grid {
+  display: grid;
+  grid-template-columns: 3fr 1fr 1fr 1fr;
+  align-items: center;
+  grid-template-areas: "a b c d";
+  padding: 5px;
+}
+
+.questions-grid-item1 {
+  grid-area: a;
+}
+.questions-grid-item2 {
+  grid-area: b;
+  justify-self: center;
+}
+.questions-grid-item3 {
+  grid-area: c;
+  justify-self: center;
+}
+.questions-grid-item4 {
+  grid-area: d;
+  justify-self: center;
+}
+
+.questionnaire-sticky-header {
+  background-color: white;
+  position: fixed;
+  width: 100%;
+  top: 0px;
+}
+
+.questionnaire-main-forms {
+  padding-top: 16%;
+}
+
+.questionnaire-header {
+  box-shadow: 0px 3px 7px 0px #0000001A;
+}
+
+.questionnaire-submit-button {
+  width: 10%;
+  display: block;
+  margin: 20px auto 100px auto;
+  padding: 10px 30px;
+  background-color: var(--main-green-color);
+  border-radius: 30px;
+  border-color: transparent;
+  font-family: 'Poppins', 'sans-serif';
+  font-weight: bold;
+  font-size: 20px;
+  letter-spacing: 1px;
+  color: white;
+}
+
+.questionnaire-submit-button:hover {
+  background-color: var(--darker-green-color);
+}
+
+.radio-button[type="radio"] {
+  appearance: none;
+  box-sizing: border-box;
+  width: 17px;
+  height: 17px;
+  margin: 6px;
+  padding: 0;
+  border: 1.5px solid grey;
+  border-radius: 50%;
+  background-color: transparent;
+  outline: none;
+}
+
+.radio-button[type="radio"]:checked {
+  border-color: var(--main-green-color);
+  background-color: var(--main-green-color);
+  background-clip: content-box;
+  padding: 2px;
+  background-image: radial-gradient(
+    circle,
+    var(--main-green-color) 0%,
+    var(--main-green-color) 50%,
+    transparent 60%,
+    transparent 100%
+  );
+}
+
+.solution-span {
+  font-weight: bold;
+}
