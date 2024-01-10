@@ -1,11 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import questionnaireReducer from './slices/questionnaireSlice.js';
-import resultsReducer from "./slices/resultsSlice.js";
+import mazeReducer from "./slices/mazeSlice.js";
 
 const store = configureStore({
   reducer: {
-    questionnaire: questionnaireReducer,
-    results: resultsReducer
+    maze: mazeReducer
   }
 });
 

@@ -1,26 +1,22 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Questionnaire from './components/Questionnaire.jsx';
-import Recommendation from './components/Recommendation.jsx';
+import Maze from './components/Maze.jsx';
+import ShoppingList from './components/ShoppingList.jsx';
 
+// traditional routing:
 // const App = () => {
 //   return (
-//     <Questionnaire/>
+//     <ShoppingList/>
 //   )
 // }
 
-// const App = () => {
-//   return (
-//     <Recommendation/>
-//   )
-// }
-
+// Single Page Application routing:
 const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path='/' element={<Questionnaire/>} />
-        <Route path='/recommendation' element={<Recommendation/>} />
+        <Route path='/' element={<ShoppingList/>} />
+        <Route path='/maze' element={<Maze/>} />
       </Routes>
     </Router>
   )
