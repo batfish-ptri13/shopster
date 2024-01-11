@@ -1,0 +1,85 @@
+body {
+    background-color: #e8e7d5;
+    width: 100%;
+    margin: 0px;
+    color: #312f32;
+    font-family: "DM Sans", sans-serif;
+}
+
+/* color pallette:
+#e8e7d5	(232,231,213)
+#312f32	(49,47,50)
+#ee2e2b	(238,46,43)
+#f5812a	(245,129,42)
+#ffd630 */
+
+/* navbar */
+
+
+
+
+.nav {
+
+    width: 100%;
+    background-color: #312f32;
+    display: flex;
+    flex-direction: rows;
+    gap: 800px;
+    justify-content: center;
+    align-items: center;
+    color: #e8e7d5;
+    height: 90px;
+    margin: 0px;
+
+}
+
+.navContent {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 1200px;
+}
+
+.navContent>h1 {
+    font-size: 35px;
+}
+
+.navContent>ul {
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+    gap: 50px;
+    font-size: 20px;
+
+}
+
+/* shopping list */
+
+.shoppingListContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
+.ingredientRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 400px;
+    align-items: center;
+    font-size: 20px;
+    font-weight: 800;
+    padding: 10px;
+}
+
+.ingredientRow>input {
+    height: 30px;
+    width: 200px;
+    font-size: 20px;
+
+}
