@@ -7,10 +7,10 @@ body {
 }
 
 /* color pallette:
-#e8e7d5	(232,231,213)
-#312f32	(49,47,50)
-#ee2e2b	(238,46,43)
-#f5812a	(245,129,42)
+#e8e7d5	(232,231,213) beige
+#312f32	(49,47,50) brown
+#ee2e2b	(238,46,43) red
+#f5812a	(245,129,42) orange
 #ffd630 */
 
 /* navbar */
@@ -61,6 +61,9 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-image: url('https://assets.bonappetit.com/photos/57d6f59fc204478524d874a8/16:9/w_2240,c_limit/13065314334_a2a3178590_k.jpg');
+    background-size: cover;
+    background-position: center;
 }
 
 #shoppingGrid {
@@ -68,10 +71,11 @@ body {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    background-color: #312f32;
+    background-color: #ffd630;
+    border-radius: 10px;
     padding: 20px;
     gap: 20px;
-
+    filter: drop-shadow(10px 10px 10px rgb(0, 0, 0, 20%))
 }
 
 
@@ -79,20 +83,23 @@ body {
 #shoppingLeft {
     display: flex;
     flex-direction: column;
-    height: 600px;
+    align-items: center;
+    justify-content: flex-start;
+    height: 450px;
     overflow-y: scroll;
-    background-color: white;
+    background-color: #e8e7d5;
 }
 
 #shoppingRight {
     display: flex;
     flex-direction: column;
-
-    height: 600px;
+    align-items: center;
+    justify-content: flex-start;
+    height: 450px;
     width: 300px;
     overflow-y: scroll;
 
-    background-color: white;
+    background-color: #e8e7d5;
 }
 
 
@@ -110,5 +117,33 @@ body {
     font-weight: 800;
     padding: 10px;
     padding-left: 50px;
-    border: 2px solid black;
+
+    /* margin: 2px; */
+    background-color: #312f32;
+    color: #e8e7d5;
+    font-weight: 300
+}
+
+.productContainer:hover {
+    cursor: pointer;
+    background-color: #433f45
+}
+
+.shoppingListContainer>button {
+    margin: 20px;
+
+    height: 70px;
+    width: 200px;
+    font-size: 23px;
+    font-weight: 400;
+    background-color: #312f32;
+    color: #e8e7d5;
+    border: none;
+    border-radius: 10px;
+    filter: drop-shadow(10px 10px 10px rgb(0, 0, 0, 20%))
+}
+
+.shoppingListContainer>button:hover {
+    cursor: pointer;
+    background-color: #433f45
 }

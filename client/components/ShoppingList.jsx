@@ -38,6 +38,7 @@ export default function ShoppingList() {
       <div id='shoppingGrid'>
 
         <div id='shoppingLeft'>
+          <h3>Store Inventory:</h3>
           <ProductEntry item='Rice' />
           <ProductEntry item='Chicken' />
           <ProductEntry item='Tomato' />
@@ -57,6 +58,7 @@ export default function ShoppingList() {
 
         </div>
         <div id='shoppingRight'>
+          <h3>Grocery List</h3>
 
 
         </div>
