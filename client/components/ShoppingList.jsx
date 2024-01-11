@@ -4,25 +4,33 @@
 */
 
 import React from 'react';
-import IngredientEntry from './IngredientEntry.jsx';
+import ProductEntry from './ProductEntry.jsx';
+import { useDispatch, useSelector } from 'react-redux'
 
-// useEffect({
-// create fetch request to get all products from inventory
+// const dispatch = useDispatch()
+// const products = useSelector(state => state.product.products)
 
-// })
+
+
 
 
 
 
 const ShoppingList = () => (
-  <div className='shoppingListContainer'>
+
+
+  // useEffect({
+  // create fetch request to get all products from inventory
+  // .then( dispatch )
+
+  // })
+
+
+  < div className='shoppingListContainer' >
 
     <h1>Shopping List component</h1>
-    <IngredientEntry number={0} />
-    <IngredientEntry number={1} />
-    <IngredientEntry number={2} />
-    <IngredientEntry number={3} />
-  </div>
+
+  </div >
 );
 
 export default ShoppingList;
