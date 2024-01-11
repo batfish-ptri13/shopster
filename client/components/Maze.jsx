@@ -4,9 +4,11 @@
 */
 
 import React from 'react';
+import Nav from './Nav.jsx';
 
 const Maze = () => (
   <div>
+    <Nav/>
     <h1>Maze component</h1>
   </div>
 );
