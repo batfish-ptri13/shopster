@@ -4,11 +4,14 @@ const initialState = {
     products: []
 };
 
-const productSlice = createSlice({
-    name: 'product',
+const shoppingListSlice = createSlice({
+    name: 'shoppingList',
     initialState,
     reducers: {
-        
+        getProducts: (action, payload) => {
+            state.products = action.payload
+        }
+
 
     }
     // reducers: {
@@ -33,4 +36,4 @@ const xxx = createAsyncThunk(
 // export { xxx };
 
 // export the whole mazeSlice reducer for redux store
-export default productSlice.reducer;
+export default shoppingListSlice.reducer;
