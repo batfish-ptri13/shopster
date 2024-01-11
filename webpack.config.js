@@ -47,8 +47,9 @@ module.exports = {
   },
 
   plugins: [new HtmlWebpackPlugin({
-    title: 'Solo Project - Dev',
+    title: 'Shopster - Scratch Project - Red Lipped Batfish',
     filename: 'index.html',
-    template: './client/index.html'
+    template: './client/index.html',
+    inject: 'body'
   })]
 }
