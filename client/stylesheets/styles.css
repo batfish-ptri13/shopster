@@ -63,23 +63,52 @@ body {
     align-items: center;
 }
 
+#shoppingGrid {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: #312f32;
+    padding: 20px;
+    gap: 20px;
+
+}
 
 
 
-.ingredientRow {
+#shoppingLeft {
+    display: flex;
+    flex-direction: column;
+    height: 600px;
+    overflow-y: scroll;
+    background-color: white;
+}
+
+#shoppingRight {
+    display: flex;
+    flex-direction: column;
+
+    height: 600px;
+    width: 300px;
+    overflow-y: scroll;
+
+    background-color: white;
+}
+
+
+
+
+
+
+.productContainer {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 400px;
+    width: 300px;
     align-items: center;
     font-size: 20px;
     font-weight: 800;
     padding: 10px;
-}
-
-.ingredientRow>input {
-    height: 30px;
-    width: 200px;
-    font-size: 20px;
-
+    padding-left: 50px;
+    border: 2px solid black;
 }
