@@ -33,19 +33,14 @@ module.exports = {
   },
 
   devServer: {
-    static: {
-      // this './build' is the path to the files in my project folder
-      directory: path.join(__dirname, './build'),
-      // this '/build' is the route, which evaluates to localhost:8080/build
-      // route for webpack internal server which serves files from 'directory' path at route /build
-      publicPath: '/build'
-    },
+
     compress: true,
     proxy: {
       '/api/*': 'http://localhost:3000'
-    }
+    },
+    historyApiFallback: true,
+    hot: true
   },
-
   plugins: [new HtmlWebpackPlugin({
     title: 'Shopster - Scratch Project - Red Lipped Batfish',
     filename: 'index.html',

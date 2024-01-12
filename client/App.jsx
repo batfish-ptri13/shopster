@@ -14,12 +14,8 @@ import Nav from './components/Nav.jsx'
 // Single Page Application routing:
 const App = () => {
   return (<div>
-    <Nav />
     <Router>
       <Routes>
-
-
-
         <Route path='/' element={<ShoppingList />} />
         <Route path='/maze' element={<Maze />} />
       </Routes>
