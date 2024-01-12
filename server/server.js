@@ -1,8 +1,9 @@
 const express = require('express');
 const path = require('path');
 
-const mazeRouter = require('./routes/mazeRouter.js');
 
+const mazeRouter = require('./routes/mazeRouter.js');
+const authRouter = require('./routes/auth.js');
 const app = express();
 const PORT = 3000;
 
@@ -13,6 +14,18 @@ app.use('/stylesheets', express.static(path.join(__dirname, '../client/styleshee
 // all routes and fetch requests MUST start from '/api/' for webpack generic proxy to pick them up 
 app.use('/api/maze', mazeRouter);
 
+
+
+//create route for sign up using router
+
+app.use('/auth', authRouter, (req, res, next)=>{
+res.status(200).send("From auth Route")
+})
+
+
+
+
+
 if (process.env.NODE_ENV === 'production') {
   app.use('/build', express.static(path.join(__dirname, '../build')));
 
@@ -21,9 +34,14 @@ if (process.env.NODE_ENV === 'production') {
   })
 }
 
+
+
+
 app.use((req, res) => res.sendStatus(404));
 
 // global error handler should be here:
+
+
 
 
 app.listen(PORT, () => console.log(`Server listening on port: ${PORT}`));
