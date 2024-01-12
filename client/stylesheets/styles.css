@@ -54,6 +54,13 @@ body {
 
 }
 
+li:hover {
+    cursor: pointer;
+    color: white;
+}
+
+
+
 /* shopping list */
 
 .shoppingListContainer {
@@ -61,21 +68,36 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-image: url('https://assets.bonappetit.com/photos/57d6f59fc204478524d874a8/16:9/w_2240,c_limit/13065314334_a2a3178590_k.jpg');
+    /* background-color: black; */
+    /* background-image: url('https://www.brrarch.com/wp-content/uploads/i-LTRQGx8-5K_website-1.jpg'); */
     background-size: cover;
     background-position: center;
 }
 
 #shoppingGrid {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: [left] 50% [center] 50% [right];
+    /* flex-direction: row;
     justify-content: center;
-    align-items: center;
-    background-color: #ffd630;
+    align-items: center; */
+
     border-radius: 10px;
+    width: 600px;
     padding: 20px;
-    gap: 20px;
+    /* gap: 20px; */
     filter: drop-shadow(10px 10px 10px rgb(0, 0, 0, 20%))
+}
+
+.shoppingHeader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.shoppingHeader>h2 {
+    background-color: #312f32;
+    padding: 20px;
+    color: #e8e7d5;
 }
 
 
@@ -86,6 +108,7 @@ body {
     align-items: center;
     justify-content: flex-start;
     height: 450px;
+    width: 100%;
     overflow-y: scroll;
     background-color: #e8e7d5;
 }
@@ -96,9 +119,8 @@ body {
     align-items: center;
     justify-content: flex-start;
     height: 450px;
-    width: 300px;
+    width: 100%;
     overflow-y: scroll;
-
     background-color: #e8e7d5;
 }
 
@@ -111,7 +133,7 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 300px;
+    width: 100%;
     align-items: center;
     font-size: 20px;
     font-weight: 800;

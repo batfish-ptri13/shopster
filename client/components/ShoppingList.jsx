@@ -1,15 +1,13 @@
-/*
-  type of component: presentational/container
-  what it does: xxx
-*/
-
 import React from 'react';
-import ProductEntry from './ProductEntry.jsx';
-import { useDispatch, useSelector } from 'react-redux'
-import Nav from './Nav.jsx';
 
-// const dispatch = useDispatch()
-// const products = useSelector(state => state.shoppingList.products)
+import Nav from './Nav.jsx';
+import ProductEntry from './ProductEntry.jsx';
+
+import { toggleListed, getProducts } from '../slices/shoppingListSlice.js'
+
+import { useDispatch, useSelector } from 'react-redux'
+
+
 
 
 
@@ -19,12 +17,21 @@ import Nav from './Nav.jsx';
 
 export default function ShoppingList() {
 
+  const dispatch = useDispatch()
+  const products = useSelector(state => state.shoppingList.products)
 
-  // useEffect({
-  // create fetch request to get all products from inventory
-  // .then( dispatch )
 
-  // })
+  function submit() {
+
+  }
+
+  function toggle(id) {
+    dispatch(toggleListed(id))
+  }
+
+
+  const groceryList = products.filter(product => product.listed === true).map(product => <ProductEntry name={product.prod_name} id={product.prod_id} toggle={toggle} />)
+  const productList = products.filter(product => product.listed === false).map(product => <ProductEntry name={product.prod_name} id={product.prod_id} toggle={toggle} />)
 
 
 
@@ -33,41 +40,35 @@ export default function ShoppingList() {
     <>
       <Nav />
       < div className='shoppingListContainer' >
-
-
-        <h1>Shopping List</h1>
-
-
         <div id='shoppingGrid'>
-
-          <div id='shoppingLeft'>
-            <h3>Store Inventory:</h3>
-            <ProductEntry item='Rice' />
-            <ProductEntry item='Chicken' />
-            <ProductEntry item='Tomato' />
-            <ProductEntry item='Red Pepper' />
-            <ProductEntry item='Green Pepper' />
-            <ProductEntry item='Onion' />
-            <ProductEntry item='Ketchup' />
-            <ProductEntry item='Mustard' />
-            <ProductEntry item='Tomato Soup' />
-            <ProductEntry item='Taco Seasoning' />
-            <ProductEntry item='Tortilla Chips' />
-            <ProductEntry item='Pringles' />
-            <ProductEntry item='Marshmellows' />
-            <ProductEntry item='Pop Tarts' />
-            <ProductEntry item='String Cheese' />
-
-
+          <div className='shoppingHeader'>
+            <h2>PRODUCTS</h2>
+            <div id='shoppingLeft'>
+              <ProductEntry name='Rice' id={1} toggle={toggle} />
+              <ProductEntry name='Chicken' />
+              <ProductEntry name='Tomato' />
+              <ProductEntry name='Red Pepper' />
+              <ProductEntry name='Green Pepper' />
+              <ProductEntry name='Onion' />
+              <ProductEntry name='Ketchup' />
+              <ProductEntry name='Mustard' />
+              <ProductEntry name='Tomato Soup' />
+              <ProductEntry name='Taco Seasoning' />
+              <ProductEntry name='Tortilla Chips' />
+              <ProductEntry name='Pringles' />
+              <ProductEntry name='Marshmellows' />
+              <ProductEntry name='Pop Tarts' />
+              <ProductEntry name='String Cheese' />
+            </div>
           </div>
-          <div id='shoppingRight'>
-            <h3>Grocery List</h3>
-
-
+          <div className='shoppingHeader'>
+            <h2>GROCERY LIST</h2>
+            <div id='shoppingRight'>
+            </div>
           </div>
         </div>
 
-
+        <button onClick={submit}>Submit</button>
 
       </div >
     </>

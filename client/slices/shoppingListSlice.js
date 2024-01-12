@@ -10,15 +10,22 @@ const shoppingListSlice = createSlice({
     reducers: {
         getProducts: (action, payload) => {
             state.products = action.payload
+        },
+        toggleListed: (action, payload) => {
+            state.products = state.products.map(product => {
+                if (product.prod_id === action.payload) {
+                    product.listed = !product.listed
+                } else {
+                    product = product
+                }
+
+            })
+
         }
 
 
     }
-    // reducers: {
-    //     const getProducts = function () {
 
-    //     }
-    // },
 });
 
 // add Thunk function definitions here
@@ -29,11 +36,8 @@ const xxx = createAsyncThunk(
     }
 );
 
-// export common reducers like this:
-// export const { updateAnswers } = mazeSlice.actions;
 
-// export thunk functions like this:
-// export { xxx };
 
-// export the whole mazeSlice reducer for redux store
+export const { getProducts, toggleListed } = shoppingListSlice.actions;
+
 export default shoppingListSlice.reducer;
