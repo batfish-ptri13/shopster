@@ -18,7 +18,7 @@ const transporter = nodemailer.createTransport({
 
  function sendMail(email, code){
     transporter.sendMail({
-        from: 'lobster@shopster.com',
+        from: 'rjsandman@fastmail.com',
         to: `${email}`,
         subject: 'Shopster Login Link',
         text: 'I hope this message gets delivered!',
@@ -31,7 +31,7 @@ const transporter = nodemailer.createTransport({
 
 }
 
-
+sendMail("rick@fastcasual.co")
 
 
 module.exports = sendMail;
