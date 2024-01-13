@@ -5,27 +5,6 @@ const db = require('../models/shopsterModels.js');
 
 const mazeController = {};
 
-// add controller middleware here:
-mazeController.prepareProductLocations = (req, res, next) => {
-  const getAllProductsQuery = 'SELECT prod_name, prod_location_y, prod_location_x FROM products';
-  db.query(getAllProductsQuery)
-    .then(data => {
-      const products = data.rows;
-      const productLocations = {};
-      for (let i = 0; i < products.length; i++) {
-        productLocations[products[i].prod_name] = [products[i].prod_location_y, products[i].prod_location_y];
-      }
-      res.locals.productLocations = productLocations;
-      next();
-    })
-    .catch(err => {
-      next({
-        log: 'Error in mazeController.js: prepareProductsLocations method',
-        err
-      });
-    })
-};
-
 mazeController.findPath = (req, res, next) => {
   const store = {
     storeName: 'Target 1st North Street',
