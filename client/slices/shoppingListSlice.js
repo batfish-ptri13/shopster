@@ -5,7 +5,7 @@ const initialState = {
 };
 
 // create a function thunk
-export const getAllProducts = createAsyncThunk('shoppingListSlice/getAllProducts', async (products, {rejectWithValue})=> {
+export const getAllProducts = createAsyncThunk('shoppingListSlice/getAllProducts', async (products, { rejectWithValue }) => {
     console.log('products from thunk --->', products);
 
     const response = await fetch('/api/list/getAllProd');
@@ -19,18 +19,21 @@ const shoppingListSlice = createSlice({
     name: 'shoppingList',
     initialState,
     reducers: {
-        getProducts: (action, payload) => {
+        getProducts: (state, action) => {
             state.products = action.payload
         },
-        toggleListed: (action, payload) => {
-            state.products = state.products.map(product => {
+        toggleListed: (state, action) => {
+            const returned = state.products.map(product => {
+                console.log('prod_id: ', product.prod_id, 'item id: ', action.payload)
                 if (product.prod_id === action.payload) {
+                    console.log("success, listed: ", product.listed)
                     product.listed = !product.listed
                 } else {
                     product = product
                 }
 
             })
+
 
         }
 
@@ -40,9 +43,9 @@ const shoppingListSlice = createSlice({
         builder.addCase(getAllProducts.fulfilled, (state, action) => {
 
             console.log('response from server--> ', action.payload);
-            
+
             state.products = action.payload.map((prod) => {
-                return {...prod, listed: false}
+                return { ...prod, listed: false }
             })
         })
     }

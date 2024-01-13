@@ -62,6 +62,8 @@ export default function ShoppingList() {
   }
 
   function toggle(id) {
+    console.log('id from toggle: ', id)
+
     dispatch(toggleListed(id))
   }
 
