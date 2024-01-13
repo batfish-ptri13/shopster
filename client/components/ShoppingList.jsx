@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux'
 
-import { getAllProducts } from '../slices/shoppingListSlice.js';
+import { getAllProducts, submitList } from '../slices/shoppingListSlice.js';
 
 
 
@@ -34,7 +34,6 @@ export default function ShoppingList() {
 
     dispatch(getAllProducts(products));
 
-
   }, [])
 
 
@@ -44,21 +43,27 @@ export default function ShoppingList() {
 
     if (groceryList.length === 0) return
 
-    const requestOptions = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
 
-        user_id: 1,
-        productsArr: groceryList
+    dispatch(submitList({
+      user_id: 1,
+      productsArr: products.filter(product => product.listed === true)
+    }))
 
-      })
-    }
+    // const requestOptions = {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify({
 
-    fetch('/api/list/submitList', requestObjects)
-      .then(navigate('/maze'))
+    //     user_id: 1,
+    //     productsArr: groceryList
+
+    //   })
+    // }
+
+    // fetch('/api/list/submitList', requestObjects)
+    //   .then(navigate('/maze'))
 
 
   }
