@@ -24,9 +24,9 @@ const shoppingListSlice = createSlice({
         },
         toggleListed: (state, action) => {
             const returned = state.products.map(product => {
-                console.log('prod_id: ', product.prod_id, 'item id: ', action.payload)
+
                 if (product.prod_id === action.payload) {
-                    console.log("success, listed: ", product.listed)
+
                     product.listed = !product.listed
                 } else {
                     product = product

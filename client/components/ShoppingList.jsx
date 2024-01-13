@@ -24,6 +24,8 @@ export default function ShoppingList() {
 
   // const userID = useSelector(state=>)
 
+
+
   const groceryList = products.filter(product => product.listed === true).map(product => <ProductEntry name={product.prod_name} id={product.prod_id} toggle={toggle} />);
   const productList = products.filter(product => product.listed === false).map(product => <ProductEntry name={product.prod_name} id={product.prod_id} toggle={toggle} />);
 
@@ -49,8 +51,8 @@ export default function ShoppingList() {
       },
       body: JSON.stringify({
 
-        user_id: userID,
-        groceryList: groceryList
+        user_id: 1,
+        productsArr: groceryList
 
       })
     }
