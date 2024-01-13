@@ -13,7 +13,11 @@ router.get('/getAllProd', listController.getAll, (req, res) => {
 
 // post shopping list- click submit (update or post)
 router.post('/submitList', listController.submitList, (req, res) => {
-  return res.status(200);
+  if(res.locals.shoppingList === 'success') {
+    return res.status(200).json(res.locals.shoppingList);
+  } else {
+    return res.status(500);
+  }
 });
 
 // deleteAll- clear all items from list

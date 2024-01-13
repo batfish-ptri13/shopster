@@ -25,7 +25,6 @@ listController.getAll = (req, res, next) => {
 listController.submitList = (req, res, next) => {
   const {user_id, productsArr} = req.body;
 
-
   let queryStr = `DELETE FROM shopping_list WHERE sl_user_id = ${user_id};`
   // loop to call query and insert into for each product in array
   productsArr.forEach( prodObj => {
@@ -51,7 +50,10 @@ listController.submitList = (req, res, next) => {
  
   console.log('submitList controller queryStr after loop: ', queryStr);
    db.query(queryStr)
-  .then(data => next())
+  .then(data => {
+    res.locals.shoppingList = 'success';
+    next()
+  })
   .catch(err => {
     return console.log('Error found in Insert query, productsArr.forEach, listController.submitList: ', err)
   })
