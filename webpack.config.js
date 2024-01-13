@@ -33,13 +33,13 @@ module.exports = {
   },
 
   devServer: {
-   
+
     compress: true,
     proxy: {
       '/api/*': 'http://localhost:3000'
     },
-    historyApiFallback:true,
-    hot:true
+    historyApiFallback: true,
+    hot: true
   },
   plugins: [new HtmlWebpackPlugin({
     title: 'Shopster - Scratch Project - Red Lipped Batfish',
