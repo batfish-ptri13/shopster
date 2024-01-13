@@ -16,7 +16,7 @@ router.get('/getAllProd', listController.getAll, (req, res) => {
 router.post('/submitList', listController.submitList, mazeController.findPath, (req, res) => {
   if (res.locals.shoppingList && res.locals.layoutWithProductsAndPath) {
     return res.status(200).json({
-      shoppingList: res.locals.shoppingList, 
+      // shoppingList: res.locals.shoppingList, 
       updatedLayout: res.locals.layoutWithProductsAndPath
     });
   } else {
