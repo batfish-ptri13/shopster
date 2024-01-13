@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    products: []
+    products: [],
+    shoppingList: []
 };
 
 // get all products in the database
@@ -14,11 +15,11 @@ export const getAllProducts = createAsyncThunk('shoppingListSlice/getAllProducts
 })
 
 // POST to submitList to update users shopping list
-export const submitList = createAsyncThunk('shoppingListSlice/submitList',  async (groceryList, {rejectWithValue}) => {
+export const submitList = createAsyncThunk('shoppingListSlice/submitList', async (groceryList, { rejectWithValue }) => {
 
     console.log('grocery-list from thunk', groceryList)
 
-    const response = fetch('/api/list/submitList', {
+    const response = await fetch('/api/list/submitList', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -26,15 +27,15 @@ export const submitList = createAsyncThunk('shoppingListSlice/submitList',  asyn
         body: JSON.stringify(groceryList)
     })
 
-    if(!response.ok) {
+    if (!response.ok) {
         console.log('error in thunk');
         // const errorData = await response.json();
         return rejectWithValue(response);
-    } 
+    }
 
     // const respnoseJSON = await response.json();
 
-    return response;
+    return await response.json();
 
 })
 
@@ -72,6 +73,7 @@ const shoppingListSlice = createSlice({
             })
         });
         builder.addCase(submitList.fulfilled, (state, action) => {
+            state.shoppingList = action.payload
             console.log('submitList response---->', action.payload);
         })
     }

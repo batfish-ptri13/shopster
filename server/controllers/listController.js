@@ -6,7 +6,7 @@ const db = require('../models/shopsterModels.js');
 const listController = {};
 
 // getAll products to populate shopping list options
-    // res.locals.products = [prod_name, prod_name, prod_name]
+// res.locals.products = [prod_name, prod_name, prod_name]
 listController.getAll = (req, res, next) => {
   db.query('SELECT * FROM products')
     .then(data => {
@@ -21,15 +21,17 @@ listController.getAll = (req, res, next) => {
 
 //submit list button on shoppingList.jsx
 // req.body object- currUserId, [prod_id, prod_id]
-    // 2nd login- user gets previous shopping, makes changes, hit submit --> conditional DELETE FROM shoppingList WHERE user_id === currUserId, INSERT all new values
+// 2nd login- user gets previous shopping, makes changes, hit submit --> conditional DELETE FROM shoppingList WHERE user_id === currUserId, INSERT all new values
 listController.submitList = (req, res, next) => {
-  const {user_id, productsArr} = req.body;
+
+  console.log('submitList req.body: ,', req.body)
+  const { user_id, productsArr } = req.body;
 
   let queryStr = `DELETE FROM shopping_list WHERE sl_user_id = ${user_id};`
   // loop to call query and insert into for each product in array
-  productsArr.forEach( prodObj => {
- 
- 
+  productsArr.forEach(prodObj => {
+
+
     //query string for Insert query
     queryStr += `
       INSERT INTO shopping_list (
@@ -40,24 +42,24 @@ listController.submitList = (req, res, next) => {
       ) VALUES (
         1,
         false,
-        ${prodObj.user_id},
+        ${req.body.user_id},
         ${prodObj.prod_id}
       );
     `
   });
   // Insert query to add record to shopping_list table
- 
- 
+
+
   console.log('submitList controller queryStr after loop: ', queryStr);
-   db.query(queryStr)
-  .then(data => {
-    res.locals.shoppingList = 'success';
-    next()
-  })
-  .catch(err => {
-    return console.log('Error found in Insert query, productsArr.forEach, listController.submitList: ', err)
-  })
- 
+  db.query(queryStr)
+    .then(data => {
+      res.locals.shoppingList = productsArr;
+      next()
+    })
+    .catch(err => {
+      return console.log('Error found in Insert query, productsArr.forEach, listController.submitList: ', err)
+    })
+
 };
 
 //delete all from list option
