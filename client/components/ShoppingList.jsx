@@ -26,14 +26,14 @@ export default function ShoppingList() {
   const productList = products.filter(product => product.listed === false).map(product => <ProductEntry name={product.prod_name} id={product.prod_id} toggle={toggle} />);
 
   //gets products and places them in state
-  useEffect(() => {
+  // useEffect(() => {
 
-    fetch('/api/list/getAllProd')
-      .then(res => res.json())
-      .then(data => dispatch(getProducts(data)))
+  //   fetch('/api/list/getAllProd')
+  //     .then(res => res.json())
+  //     .then(data => dispatch(getProducts(data)))
 
 
-  }, [])
+  // }, [])
 
 
 
