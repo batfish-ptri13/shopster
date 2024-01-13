@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 
 const mazeRouter = require('./routes/mazeRouter.js');
+const listRouter = require('./routes/listRouter.js');
 
 const app = express();
 const PORT = 3000;
@@ -12,6 +13,7 @@ app.use('/stylesheets', express.static(path.join(__dirname, '../client/styleshee
 
 // all routes and fetch requests MUST start from '/api/' for webpack generic proxy to pick them up 
 app.use('/api/maze', mazeRouter);
+app.use('/api/list', listRouter);
 
 if (process.env.NODE_ENV === 'production') {
   app.use('/build', express.static(path.join(__dirname, '../build')));
