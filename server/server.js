@@ -10,7 +10,9 @@ const app = express();
 const PORT = 3000;
 
 app.use(express.json());
-
+//Added to parse cookies and Encode Url
+app.use(express.urlencoded());
+app.use(cookieParser());
 app.use('/stylesheets', express.static(path.join(__dirname, '../client/stylesheets')));
 
 // all routes and fetch requests MUST start from '/api/' for webpack generic proxy to pick them up 
