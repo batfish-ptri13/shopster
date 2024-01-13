@@ -26,6 +26,15 @@ if (process.env.NODE_ENV === 'production') {
 app.use((req, res) => res.sendStatus(404));
 
 // global error handler should be here:
-
+app.use((err, req, res, next) => {
+  const defaultErr = {
+    log: 'Express error handler caught unknown middleware error',
+    status: 500,
+    message: { err: 'An error occurred' },
+  }
+  const errorObj = Object.assign(defaultErr, err);
+  console.log(errorObj.log);
+  res.status(errorObj.status).json(errorObj.message);
+})
 
 app.listen(PORT, () => console.log(`Server listening on port: ${PORT}`));

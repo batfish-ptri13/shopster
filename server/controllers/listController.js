@@ -24,10 +24,13 @@ listController.getAll = (req, res, next) => {
     // 2nd login- user gets previous shopping, makes changes, hit submit --> conditional DELETE FROM shoppingList WHERE user_id === currUserId, INSERT all new values
 listController.submitList = (req, res, next) => {
   const {user_id, productsArr} = req.body;
+  // console.log('entered listController.submitList, req.body: ', req.body);
 
   // loop to call query and insert into for each product in array
   productsArr.forEach( prod_id => {
     // query to find corresponding location data? Unnesecary if we send prod_location_x and y back on req object from frontend, maybe in an array of objects [{prod_id: __, prod_location_x:__, prod_location_y:__}]
+    console.log('entered forEach loop listController.submitList, prod_id: ', prod_id);
+    
     db.query(`SELECT * FROM products WHERE prod_id === ${prod_id}`)
     .then(data => {
       const sl_prod_location_x = data.rows.prod_location_x;
