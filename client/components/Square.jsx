@@ -13,12 +13,10 @@ export default function (props) {
     }
 
 
-
-
-
     return (
         <div className='box' id={id}>
-            {/* {props.number} */}
+            {props.number === 2 && '🌮'}
+
         </div>
     )
 
