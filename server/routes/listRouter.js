@@ -1,6 +1,7 @@
 const express = require('express');
 
 const listController = require('../controllers/listController.js');
+const mazeController = require('../controllers/mazeController.js');
 
 const router = express.Router();
 
@@ -12,9 +13,12 @@ router.get('/getAllProd', listController.getAll, (req, res) => {
 });
 
 // post shopping list- click submit (update or post)
-router.post('/submitList', listController.submitList, (req, res) => {
-  if (res.locals.shoppingList) {
-    return res.status(200).json(res.locals.shoppingList);
+router.post('/submitList', listController.submitList, mazeController.findPath, (req, res) => {
+  if (res.locals.shoppingList && res.locals.layoutWithProductsAndPath) {
+    return res.status(200).json({
+      shoppingList: res.locals.shoppingList, 
+      updatedLayout: res.locals.layoutWithProductsAndPath
+    });
   } else {
     return res.status(500);
   }
