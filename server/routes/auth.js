@@ -19,4 +19,9 @@ router.use('/login', (req,res,next)=>{
 
 })
 
+router.use('/sendMagicLink', (req, res, next)=>{
+    res.status(200).send("Response from Magic Link")
+
+})
+
 module.exports = router;
