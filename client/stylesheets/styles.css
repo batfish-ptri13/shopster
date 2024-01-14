@@ -8,9 +8,9 @@ body {
 
     background: repeating-linear-gradient(45deg,
             #007C5A,
-            #007C5A 100px,
-            #00674b 100px,
-            #00674b 200px);
+            #007C5A 70px,
+            #00674b 70px,
+            #00674b 140px);
 }
 
 /* color pallette:
@@ -51,6 +51,13 @@ body {
 
 .navContent>h1 {
     font-size: 35px;
+}
+
+#logoCorner {
+    display: flex;
+    flex-direction: row;
+    align-items: first-baseline;
+    gap: 30px;
 }
 
 .navContent>ul {

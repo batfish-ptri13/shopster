@@ -83,7 +83,7 @@ export default function ShoppingList() {
             </div>
           </div>
           <div className='shoppingHeader'>
-            <h2>GROCERY LIST</h2>
+            <h2>GROCERY</h2>
             <div id='shoppingRight'>
               {groceryList.length > 0 ? groceryList : <div id='instructions'>Select Items From Product List</div>}
             </div>
