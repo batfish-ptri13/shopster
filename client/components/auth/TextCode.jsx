@@ -5,15 +5,15 @@ import * as stylex from '@stylexjs/stylex';
 
 
 
-export default function MagicLink(){
+export default function TextCode(){
  
   return (
   
     <>
-      <div>Get Magic Link</div>
+      <div>Send Text Code</div>
       <div {...stylex.props(styles.buttonWrapper)}>
         <div {...stylex.props(styles.wrap)}>
-          <div>Email Address</div>
+          <div>Enter Code</div>
           <input {...stylex.props(styles.input)}/> 
         </div>
        
@@ -21,7 +21,7 @@ export default function MagicLink(){
           
       </div>
 
-      <button {...stylex.props(styles.submitButton)}> Send Email</button>
+      <button {...stylex.props(styles.submitButton)}> Login</button>
    
     </>
   );
