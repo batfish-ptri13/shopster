@@ -26,8 +26,8 @@ export default function ShoppingList() {
 
 
 
-  const groceryList = products.filter(product => product.listed === true).map(product => <ProductEntry name={product.prod_name} id={product.prod_id} toggle={toggle} />);
-  const productList = products.filter(product => product.listed === false).map(product => <ProductEntry name={product.prod_name} id={product.prod_id} toggle={toggle} />);
+  const groceryList = products.filter(product => product.listed === true).map(product => <ProductEntry name={product.prod_name} id={product.prod_id} toggle={toggle} listed={product.listed} />);
+  const productList = products.filter(product => product.listed === false).map(product => <ProductEntry name={product.prod_name} id={product.prod_id} toggle={toggle} listed={product.listed} />);
 
   //gets products and places them in state
   useEffect(() => {
@@ -91,12 +91,12 @@ export default function ShoppingList() {
           <div className='shoppingHeader'>
             <h2>GROCERY LIST</h2>
             <div id='shoppingRight'>
-              {groceryList}
+              {groceryList.length > 0 ? groceryList : <div id='instructions'>Select Items From Product List</div>}
             </div>
           </div>
         </div>
 
-        <button onClick={submit}>Submit</button>
+        <button onClick={submit}>SHOP</button>
 
       </div >
     </>
