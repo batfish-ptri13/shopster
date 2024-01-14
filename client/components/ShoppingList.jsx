@@ -20,9 +20,15 @@ export default function ShoppingList() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const products = useSelector(state => state.shoppingList.products);
+  let products = useSelector(state => state.shoppingList.products);
 
   // const userID = useSelector(state=>)
+
+  // console.log('sorted: ', products.length > 0 && products.sort((a, b) => {
+  //   if (a.prod_name > b.prod_name) return 1
+  //   if (a.prod_name < b.prod_name) return -1
+  //   return 0
+  // }))
 
 
 
@@ -49,21 +55,9 @@ export default function ShoppingList() {
       productsArr: products.filter(product => product.listed === true)
     }))
 
-    // const requestOptions = {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify({
+    navigate('/maze')
 
-    //     user_id: 1,
-    //     productsArr: groceryList
 
-    //   })
-    // }
-
-    // fetch('/api/list/submitList', requestObjects)
-    //   .then(navigate('/maze'))
 
 
   }
