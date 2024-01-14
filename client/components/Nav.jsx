@@ -14,7 +14,7 @@ export default function Nav() {
         <div className='nav'>
             <div className='navContent'>
 
-                <h1>SH🦞PSER</h1>
+                <h1>SHOPSTER</h1>
 
                 <ul>
                     <li onClick={handleClick}>Shopping List</li>
