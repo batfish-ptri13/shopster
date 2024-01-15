@@ -20,14 +20,20 @@ export default function ShoppingList() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const products = useSelector(state => state.shoppingList.products);
+  let products = useSelector(state => state.shoppingList.products);
 
   // const userID = useSelector(state=>)
 
+  // console.log('sorted: ', products.length > 0 && products.sort((a, b) => {
+  //   if (a.prod_name > b.prod_name) return 1
+  //   if (a.prod_name < b.prod_name) return -1
+  //   return 0
+  // }))
 
 
-  const groceryList = products.filter(product => product.listed === true).map(product => <ProductEntry name={product.prod_name} id={product.prod_id} toggle={toggle} />);
-  const productList = products.filter(product => product.listed === false).map(product => <ProductEntry name={product.prod_name} id={product.prod_id} toggle={toggle} />);
+
+  const groceryList = products.filter(product => product.listed === true).map(product => <ProductEntry name={product.prod_name} id={product.prod_id} toggle={toggle} listed={product.listed} />);
+  const productList = products.filter(product => product.listed === false).map(product => <ProductEntry name={product.prod_name} id={product.prod_id} toggle={toggle} listed={product.listed} />);
 
   //gets products and places them in state
   useEffect(() => {
@@ -49,21 +55,9 @@ export default function ShoppingList() {
       productsArr: products.filter(product => product.listed === true)
     }))
 
-    // const requestOptions = {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify({
+    navigate('/maze')
 
-    //     user_id: 1,
-    //     productsArr: groceryList
 
-    //   })
-    // }
-
-    // fetch('/api/list/submitList', requestObjects)
-    //   .then(navigate('/maze'))
 
 
   }
@@ -89,14 +83,14 @@ export default function ShoppingList() {
             </div>
           </div>
           <div className='shoppingHeader'>
-            <h2>GROCERY LIST</h2>
+            <h2>GROCERY</h2>
             <div id='shoppingRight'>
-              {groceryList}
+              {groceryList.length > 0 ? groceryList : <div id='instructions'>Select Items From Product List</div>}
             </div>
           </div>
         </div>
 
-        <button onClick={submit}>Submit</button>
+        <button onClick={submit}>SHOP</button>
 
       </div >
     </>

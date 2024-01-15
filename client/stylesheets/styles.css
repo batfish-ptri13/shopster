@@ -8,9 +8,9 @@ body {
 
     background: repeating-linear-gradient(45deg,
             #007C5A,
-            #007C5A 100px,
-            #00674b 100px,
-            #00674b 200px);
+            #007C5A 70px,
+            #00674b 70px,
+            #00674b 140px);
 }
 
 /* color pallette:
@@ -51,6 +51,13 @@ body {
 
 .navContent>h1 {
     font-size: 35px;
+}
+
+#logoCorner {
+    display: flex;
+    flex-direction: row;
+    align-items: first-baseline;
+    gap: 30px;
 }
 
 .navContent>ul {
@@ -119,6 +126,20 @@ li:hover {
     width: 100%;
     overflow-y: scroll;
     background-color: #e8e7d5;
+    background-color: #312f32;
+}
+
+#instructions {
+    /* width: 200px; */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 20px;
+    font-weight: 300px;
+    padding: 20px;
+
 }
 
 #shoppingRight {
@@ -128,6 +149,7 @@ li:hover {
     justify-content: flex-start;
     height: 400px;
     width: 100%;
+
     overflow-y: scroll;
     background-color: #00674b;
     background-color: #e8e7d5
@@ -142,15 +164,32 @@ li:hover {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 100%;
+    /* display: grid;
+    grid-template-columns: [left]85%[center]15%[right]; */
+    width: 250px;
     align-items: center;
     font-size: 20px;
-    font-weight: 800;
     padding: 10px;
-    padding-left: 50px;
+    padding-left: 25px;
+    padding-right: 25px;
     background-color: #312f32;
     color: #e8e7d5;
     font-weight: 300
+}
+
+#onList {
+    background-color: #1b4636
+}
+
+#onList:hover {
+    background-color: #235A45
+}
+
+#symbol {
+    /* display: flex;
+    flex-direction: row;
+    justify-content: flex-end; */
+
 }
 
 .productContainer:hover {
@@ -164,7 +203,7 @@ li:hover {
     height: 70px;
     width: 200px;
     font-size: 23px;
-    font-weight: 400;
+    font-weight: 800;
     background-color: #312f32;
     color: #e8e7d5;
     border: none;
