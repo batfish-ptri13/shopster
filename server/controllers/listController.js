@@ -10,7 +10,16 @@ const listController = {};
 listController.getAll = (req, res, next) => {
   db.query('SELECT * FROM products')
     .then(data => {
-      res.locals.products = data.rows;
+
+
+
+      //now sorts alphabetically
+      res.locals.products = data.rows.sort((a, b) => {
+        console.log('a, b', a, b)
+        if (a.prod_name.toLowerCase() > b.prod_name.toLowerCase()) return 1
+        if (a.prod_name.toLowerCase() < b.prod_name.toLowerCase()) return -1
+        return 0
+      });
       next();
     })
     .catch(err => {
