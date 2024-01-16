@@ -12,8 +12,8 @@ const PORT = 3000;
 
 app.use(express.json());
 //Added to parse cookies and Encode Url
-app.use(express.urlencoded());
-app.use(cookieParser());
+
+
 app.use('/stylesheets', express.static(path.join(__dirname, '../client/stylesheets')));
 
 // all routes and fetch requests MUST start from '/api/' for webpack generic proxy to pick them up 
@@ -25,8 +25,8 @@ app.use('/api/list', listRouter);
 //create route for sign up using router
 
 app.use('/auth', authRouter, (req, res, next)=>{
-res.status(200).send("From auth Route")
-})
+  res.status(200).send("From auth Route");
+});
 
 
 
@@ -37,9 +37,8 @@ if (process.env.NODE_ENV === 'production') {
 
   app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/index.html'));
-  })
+  });
 }
-
 
 
 
@@ -51,11 +50,11 @@ app.use((err, req, res, next) => {
     log: 'Express error handler caught unknown middleware error',
     status: 500,
     message: { err: 'An error occurred' },
-  }
+  };
   const errorObj = Object.assign(defaultErr, err);
   console.log(errorObj.log);
   res.status(errorObj.status).json(errorObj.message);
-})
+});
 
 
 

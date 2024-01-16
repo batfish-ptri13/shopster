@@ -8,7 +8,7 @@ const pool = new Pool({
 });
 
 // Database is comprised of 3 tables- products, users, shopping list
-  // You can find a copy of our schema model here:
+// You can find a copy of our schema model here:
 
 //Test database connection
 // pool.connect();
