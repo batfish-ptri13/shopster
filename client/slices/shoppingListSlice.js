@@ -14,30 +14,30 @@ export const getAllProducts = createAsyncThunk('shoppingListSlice/getAllProducts
     return await response.json()
 })
 
-// POST to submitList to update users shopping list
-export const submitList = createAsyncThunk('shoppingListSlice/submitList', async (groceryList, { rejectWithValue }) => {
+// // POST to submitList to update users shopping list
+// export const submitList = createAsyncThunk('shoppingListSlice/submitList', async (groceryList, { rejectWithValue }) => {
 
-    console.log('grocery-list from thunk', groceryList)
+//     console.log('grocery-list from thunk', groceryList)
 
-    const response = await fetch('/api/list/submitList', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(groceryList)
-    })
+//     const response = await fetch('/api/list/submitList', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify(groceryList)
+//     })
 
-    if (!response.ok) {
-        console.log('error in thunk');
-        // const errorData = await response.json();
-        return rejectWithValue(response);
-    }
+//     if (!response.ok) {
+//         console.log('error in thunk');
+//         // const errorData = await response.json();
+//         return rejectWithValue(response);
+//     }
 
-    // const respnoseJSON = await response.json();
+//     // const respnoseJSON = await response.json();
 
-    return await response.json();
+//     return await response.json();
 
-})
+// })
 
 const shoppingListSlice = createSlice({
     name: 'shoppingList',
@@ -72,10 +72,10 @@ const shoppingListSlice = createSlice({
                 return { ...prod, listed: false }
             })
         });
-        builder.addCase(submitList.fulfilled, (state, action) => {
-            state.shoppingList = action.payload
-            console.log('submitList response---->', action.payload);
-        })
+        // builder.addCase(submitList.fulfilled, (state, action) => {
+        //     state.shoppingList = action.payload
+        //     console.log('submitList response---->', action.payload);
+        // })
     }
 
 });
