@@ -302,7 +302,6 @@ li:hover {
     /* background-color: #312f32; */
     /* background-color: orange; */
     background-color: #312f32;
-    background-color: #007C5A;
     color: #e8e7d5;
     font-size: 20px;
     display: flex;
@@ -320,13 +319,22 @@ li:hover {
 }
 
 #circle {
-    width: 20px;
-    height: 20px;
-    background-color: #312f32;
-    border-radius: 6px;
+    width: 80%;
+    height: 80%;
+    background-color: #007C5A;
+    border-radius: 5px;
 }
+
 
 #svg {
     width: 100%;
-    height: auto
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+svg {
+    width: 80%;
+    height: 80%
 }
