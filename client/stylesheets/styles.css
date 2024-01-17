@@ -296,7 +296,21 @@ li:hover {
 }
 
 #product {
-    background-color: #312f32;
+    /* background-color: #312f32; */
+    background-color: orange;
+}
 
+#path {
+    background-color: #e8e7d5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border-radius: 50px; */
+}
 
+#circle {
+    width: 15px;
+    height: 15px;
+    background-color: #00674b;
+    border-radius: 50px;
 }

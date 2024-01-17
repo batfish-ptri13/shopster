@@ -8,7 +8,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux'
 
-import { getAllProducts, submitList } from '../slices/shoppingListSlice.js';
+import { getAllProducts } from '../slices/shoppingListSlice.js';
+import { submitList } from '../slices/mazeSlice.js';
 
 
 
