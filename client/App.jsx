@@ -10,6 +10,7 @@ import UandP from './components/auth/UandP.jsx';
 import MagicLink from './components/auth/MagicLink.jsx';
 import Text from './components/auth/Text.jsx';
 import TextCode from './components/auth/TextCode.jsx';
+import CreatePassword from './components/auth/CreatePassword.jsx';
 
 // traditional routing:
 // const App = () => {
@@ -32,6 +33,7 @@ const App = () => {
           <Route path='/magiclink' element={<MagicLink/>} />
           <Route path='/text' element={<Text />} />
           <Route path='/textcode' element={<TextCode />} />
+          <Route path='/createpassword' element={<CreatePassword />} />
 
 
         </Route>

@@ -10,16 +10,16 @@ const jwtController = {};
 
 jwtController.createToken = (req, res, next)=>{
   //get user id and email
-  const {email, phone} = req.body;
+  const {user_id, user_name, user_email } = res.locals.user;
   
-  var token = jwt.sign({email:email, phone:phone}, JWT_SECRET);
+  const token = jwt.sign({user_id, user_name, user_email}, JWT_SECRET);
 
   // res.locals.jwt = token;
   res.locals.token = token;
 
 
   //return token to next middleware function
-  next();
+  return next();
 };
 
 

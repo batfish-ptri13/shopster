@@ -1,12 +1,40 @@
 
 
-import React from 'react';
+import React, {useState} from 'react';
 import * as stylex from '@stylexjs/stylex';
 
 
 
 export default function SignUp(){
- 
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [pass, setPass] = useState('');
+
+
+  async function submitForm(){
+    const options = {
+      method:'POST',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({user_name: name, user_email:email, user_phone:phone})
+    };
+    
+    const html =  await fetch('/auth/signup', options);
+
+    if(html.status === 200){
+      const response = await html.json();
+   
+      console.log(response);
+    
+
+  
+    }else{
+      console.log(await html.json());
+    }
+     
+  }
   return (
   
     <>
@@ -17,22 +45,26 @@ export default function SignUp(){
       <div>Create New Account</div>
       <div {...stylex.props(styles.buttonWrapper)}>
         <div {...stylex.props(styles.wrap)}>
-          <div>First Name</div>
-          <input {...stylex.props(styles.input)}/> 
+          <div>Name</div>
+          <input value={name} onChange={(e)=>setName(e.target.value)} {...stylex.props(styles.input)}/> 
         </div>
-        <div {...stylex.props(styles.wrap)}>
-          <div>Last Name</div>
-          <input {...stylex.props(styles.input)}/>
-        </div>
+       
         <div {...stylex.props(styles.wrap)}>
           <div>Email</div>
-          <input {...stylex.props(styles.input)}/>
+          <input value={email} onChange={(e)=>setEmail(e.target.value)} {...stylex.props(styles.input)}/> 
         </div>
         <div {...stylex.props(styles.wrap)}>
           <div>Phone</div>
+          <input value={phone} onChange={(e)=>setPhone(e.target.value)} {...stylex.props(styles.input)}/> 
+        </div>
+        <div {...stylex.props(styles.wrap)}>
+          <div>Password </div>
+          <input value={pass} onChange={(e)=>setPass(e.target.value)}  {...stylex.props(styles.input)}/> 
+        </div>
+        <div {...stylex.props(styles.wrap)}>
+          <div>Confirm Password</div>
           <input {...stylex.props(styles.input)}/>
         </div>
-          
           
       </div>
          
@@ -41,7 +73,7 @@ export default function SignUp(){
 
   
 
-      <button {...stylex.props(styles.submitButton)}> Submit</button>
+      <button onClick={submitForm} {...stylex.props(styles.submitButton)}> Submit</button>
    
 
     </>

@@ -3,17 +3,28 @@ const express = require('express');
 const router =  express.Router();
 
 //create route for Authorization
-const signup = require('../controllers/signupController.js');
-const {createUser} = require('../controllers/userController.js');
-const {createToken} = require('../controllers/jwtController.js');
 
+const {createUser, verifyUser} = require('../controllers/userController.js');
+const {createToken} = require('../controllers/jwtController.js');
+const {setCookie} = require('../controllers/cookieController.js');
+const {createUserPassword} = require('../controllers/signupController.js');
 //create user route
 
+// router.use('/signup/:id', createUserPassword,createToken,setCookie,(req, res, next)=>{
+   
 
-//create a user
-router.use('/signup', createUser, createToken,(req, res, next)=>{
-  const result = {token: res.locals.token, user:res.locals.user};
-  res.status(200).send(result);
+//   // const result = {user:res.locals.user};
+//   return res.status(200).send(res.locals.user);
+    
+// });
+
+
+//create a user flow:  check if user exists
+router.use('/signup', verifyUser, createUserPassword, createUser, createToken, setCookie, (req, res, next)=>{
+  
+  const result = {user:res.locals.user};
+  return res.status(200).send(result);
+  
 });
 
 router.use('/login', (req,res,next)=>{
