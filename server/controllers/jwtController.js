@@ -10,9 +10,9 @@ const jwtController = {};
 
 jwtController.createToken = (req, res, next)=>{
   //get user id and email
-  const {user_id, user_name, user_email } = res.locals.user;
+  const user_id = res.locals.user_id;
   
-  const token = jwt.sign({user_id, user_name, user_email}, JWT_SECRET);
+  const token = jwt.sign({user_id}, JWT_SECRET);
 
   // res.locals.jwt = token;
   res.locals.token = token;

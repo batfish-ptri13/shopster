@@ -41,17 +41,30 @@ userController.createUser = async (req, res, next)=>{
 //check if user exists in the database
   //hash 
   //name, email, phone from req.body
-
-  //if not then user the req.body to add user with Name, email, and Phone
+  const {user_name, user_email, user_phone} = req.body;
+  const hash = res.locals.hash;
+ 
   
   //create the user in database and return the id, name, and email
-    
-  res.locals.user = {user_id: "123", user_name:"Rob", user_email: "robjsand@mail.com"};
+  const query = `INSERT INTO users (
+      user_name,
+      user_email,
+      user_phone,
+      user_hash
+    ) VALUES (
+      ${user_name},
+      ${user_email},
+      ${user_phone},
+      ${hash}
+    );`;
+  await db.query(query);
+
+  const userQuery = `SELECT user_id FROM users WHERE user_name= ${user_name}`;
+
+  const userId = await db.query(userQuery);
+
+  res.locals.user_id = userId;
   return next();
-  
-  //user is found and return error notifying client that cannot use that email address or phone number
-   
-  // return res.status(401).send({reason:user.reason});
   
  
 };
@@ -60,6 +73,7 @@ userController.createUser = async (req, res, next)=>{
 //check if user exists in the database
 userController.verifyUser = async (req, res, next)=>{
   const {user_email, user_phone} = req.body;
+
   const user = await verifyUser(user_email, user_phone);
 
   //if false send back message and redirect to sign up page
@@ -68,6 +82,7 @@ userController.verifyUser = async (req, res, next)=>{
   
   //if true - verify the credentials sent and then send back a refreshed token.
   }else{
+    console.log('user verified verifyUser middleware, ready for createUserPassword');
     return next();
   }
     

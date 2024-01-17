@@ -18,7 +18,7 @@ export default function SignUp(){
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({user_name: name, user_email:email, user_phone:phone})
+      body: JSON.stringify({user_name: name, user_email:email, user_phone:phone, user_pass:pass})
     };
     
     const html =  await fetch('/auth/signup', options);
@@ -61,10 +61,7 @@ export default function SignUp(){
           <div>Password </div>
           <input value={pass} onChange={(e)=>setPass(e.target.value)}  {...stylex.props(styles.input)}/> 
         </div>
-        <div {...stylex.props(styles.wrap)}>
-          <div>Confirm Password</div>
-          <input {...stylex.props(styles.input)}/>
-        </div>
+        
           
       </div>
          
