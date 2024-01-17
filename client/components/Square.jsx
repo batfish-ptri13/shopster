@@ -9,16 +9,23 @@ export default function ({ details }) {
     let id = ''
     let sanitizedSvg;
 
-    if (type === 0) {
-        id = 'aisle'
-    } else if (type === 1) {
-        id = 'shelf'
-    } else if (type === 2) {
-        id = 'product'
-        sanitizedSvg = DOMPurify.sanitize(prod_image, { USE_PROFILES: { svg: true } });
-    } else if (type === 3) {
-        id = 'path'
+
+    switch (type) {
+        case 0:
+            id = 'aisle';
+            break;
+        case 1:
+            id = 'shelf';
+            break;
+        case 2:
+            id = 'product';
+            sanitizedSvg = DOMPurify.sanitize(prod_image, { USE_PROFILES: { svg: true } });
+            break;
+        case 3:
+            id = 'path';
+            break;
     }
+
 
     return (
 
