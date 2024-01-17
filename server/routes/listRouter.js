@@ -24,6 +24,16 @@ router.post('/submitList', listController.submitList, mazeController.findPath, (
   }
 });
 
+
+router.post('/submitListA', mazeController.findPathAStar, (req, res, next) => { 
+  if(res.locals.aStarPath) {
+    return res.status(200).json(res.locals.aStarPath);
+  }  else { 
+    return res.status(500).json(res.locals.aStarPath);
+  }
+
+})
+
 // deleteAll- clear all items from list
 // submit list button on shoppingList.jsx
 router.delete('/clearList', listController.clearList, (req, res) => {
