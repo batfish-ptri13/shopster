@@ -4,7 +4,7 @@ import Square from './Square.jsx'
 export default function Row(props) {
 
     const boxes = props.row.map(square => {
-        return <Square number={square} />
+        return <Square details={square} />
     })
 
 
