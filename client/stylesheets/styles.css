@@ -127,6 +127,7 @@ li:hover {
     overflow-y: scroll;
     background-color: #e8e7d5;
     background-color: #312f32;
+
 }
 
 #instructions {
@@ -174,7 +175,9 @@ li:hover {
     padding-right: 25px;
     background-color: #312f32;
     color: #e8e7d5;
-    font-weight: 300
+    font-weight: 300;
+    border-bottom: 1px solid #e8e7d5;
+    border-bottom: 1px solid #007C5A
 }
 
 #onList {
@@ -297,7 +300,15 @@ li:hover {
 
 #product {
     /* background-color: #312f32; */
-    background-color: orange;
+    /* background-color: orange; */
+    background-color: #312f32;
+    background-color: #007C5A;
+    color: #e8e7d5;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700
 }
 
 #path {
@@ -309,8 +320,13 @@ li:hover {
 }
 
 #circle {
-    width: 15px;
-    height: 15px;
-    background-color: #00674b;
-    border-radius: 50px;
+    width: 20px;
+    height: 20px;
+    background-color: #312f32;
+    border-radius: 6px;
+}
+
+#svg {
+    width: 100%;
+    height: auto
 }
