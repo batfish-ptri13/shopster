@@ -69,5 +69,6 @@ jwtController.verifyTokenParams = (req, res, next)=>{
   //return to next middleware
 };
 
+
 module.exports = jwtController;
 

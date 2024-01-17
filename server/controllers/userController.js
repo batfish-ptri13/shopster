@@ -7,10 +7,10 @@ const userController = {};
 async function verifyUser(email, phone) {
   const emailQuery = {
     text: `SELECT * FROM users WHERE user_email = $1`,
-    values: [email],
+    values: [JSON.stringify(email)],
   };
   const phoneQuery = {
-    text: `SELECT * FROM users WHERE user_name = $1;`,
+    text: `SELECT * FROM users WHERE user_phone = $1;`,
     values: [phone],
   };
   let userEmail = await db.query(emailQuery);
@@ -43,27 +43,32 @@ userController.createUser = async (req, res, next)=>{
   //name, email, phone from req.body
   const {user_name, user_email, user_phone} = req.body;
   const hash = res.locals.hash;
- 
-  
+  JSON.stringify(hash);
+  console.log(user_name, user_email,user_phone, "Line 47");
   //create the user in database and return the id, name, and email
-  const query = `INSERT INTO users (
-      user_name,
-      user_email,
-      user_phone,
-      user_hash
-    ) VALUES (
-      ${user_name},
-      ${user_email},
-      ${user_phone},
-      ${hash}
-    );`;
-  await db.query(query);
+  //   const query = `INSERT INTO users (
+  //       user_name,
+  //       user_email,
+  //       user_phone,
+  //       user_hash
+  //     ) VALUES (
+  //       ${user_name},
+  //       ${user_email},
+  //       ${user_phone},
+  //       ${JSON.stringify(hash)}
+  //     );`;
+    
+  const text = 'INSERT INTO users(user_name, user_email, user_phone, user_hash) VALUES($1, $2, $3, $4) RETURNING *';
+  const values = [user_name, JSON.stringify(user_email),user_phone, hash];
+ 
+  const person = await db.query(text, values);
+  const person_id = person.rows[0].user_id;
+  console.log(person_id);
+  const userQuery = `SELECT user_id FROM users WHERE user_email= ${user_email};`;
 
-  const userQuery = `SELECT user_id FROM users WHERE user_name= ${user_name}`;
+  //   const userId = await db.query(userQuery);
 
-  const userId = await db.query(userQuery);
-
-  res.locals.user_id = userId;
+  res.locals.user_id = person_id;
   return next();
   
  
@@ -77,6 +82,7 @@ userController.verifyUser = async (req, res, next)=>{
   const user = await verifyUser(user_email, user_phone);
 
   //if false send back message and redirect to sign up page
+  console.log(user, "Line 85");
   if(user.userExists === true){
     return res.status(401).json(user.reason);
   
