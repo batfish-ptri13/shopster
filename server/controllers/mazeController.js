@@ -271,7 +271,7 @@ mazeController.findPathAStar = (req, res, next) => {
     const path = [];
     console.log('reconstruct-->', node);
     while (node) {
-      path.unshift([node.x, node.y]);
+      path.unshift([node.y, node.x]);
       node = node.parent;
     }
     return path;
