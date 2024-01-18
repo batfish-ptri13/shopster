@@ -164,7 +164,8 @@ mazeController.mapLayout = (req, res, next) => {
     layoutForUI[y][x].type = 3;
     });
 
-  res.locals.layoutWithoutPath = layoutForUI;
+  res.locals.layoutWithProductsAndPath = layoutForUI;
+  console.log('MAZE CONTROLLER: UPDATED LAYOUT:  ', res.locals.layoutWithProductsAndPath);
   next();
 };
 
