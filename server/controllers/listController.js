@@ -63,7 +63,7 @@ listController.submitList = (req, res, next) => {
   db.query(queryStr)
     .then(data => {
       res.locals.shoppingList = productsArr;
-      next()
+      next();
     })
     .catch(err => {
       return console.log('Error found in Insert query, productsArr.forEach, listController.submitList: ', err)
