@@ -1,30 +1,40 @@
-import React from 'react'
+import React from 'react';
+import DOMPurify from 'dompurify';
 
-export default function (props) {
 
-    console.log('props.number', props.number.type)
+export default function ({ details }) {
 
-    // prod.number.prod_image && console.log()
-
+    const { prod_image, type } = details
 
     let id = ''
-    if (props.number.type === 0) {
-        id = 'aisle'
-    } else if (props.number.type === 1) {
-        id = 'shelf'
-    } else if (props.number.type === 2) {
-        id = 'product'
-    } else if (props.number.type === 3) {
-        id = 'path'
+    let sanitizedSvg;
+
+
+    switch (type) {
+        case 0:
+            id = 'aisle';
+            break;
+        case 1:
+            id = 'shelf';
+            break;
+        case 2:
+            id = 'product';
+            sanitizedSvg = DOMPurify.sanitize(prod_image, { USE_PROFILES: { svg: true } });
+            break;
+        case 3:
+            id = 'path';
+            break;
     }
 
 
     return (
-        <div className='box' id={id}>
-            {props.number.type === 2 && props.number.prod_image}
-            {props.number.type === 3 && <div id='circle'></div>}
 
-        </div>
+        <div className='box' id={id} >
+            {type === 2 && <div id='svg' dangerouslySetInnerHTML={{ __html: sanitizedSvg }} />}
+
+            {type === 3 && <div id='circle'></div>}
+
+        </div >
     )
 
 
