@@ -23,10 +23,7 @@ app.use('/api/list', listRouter);
 
 
 //create route for sign up using router
-
-app.use('/auth', authRouter, (req, res, next)=>{
-  res.status(200).send("From auth Route");
-});
+app.use('/auth', authRouter);
 
 
 
