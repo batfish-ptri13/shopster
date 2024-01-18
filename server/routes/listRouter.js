@@ -13,7 +13,7 @@ router.get('/getAllProd', listController.getAll, (req, res) => {
 });
 
 // post shopping list- click submit (update or post)
-router.post('/submitList', listController.submitList, mazeController.findPath, (req, res) => {
+router.post('/submitList', listController.submitList, mazeController.findPathAStar, mazeController.mapLayout, (req, res) => {
   if (res.locals.shoppingList && res.locals.layoutWithProductsAndPath) {
     return res.status(200).json(res.locals.layoutWithProductsAndPath);
   } else {
