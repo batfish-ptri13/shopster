@@ -1,17 +1,25 @@
 body {
-    background-color: #e8e7d5;
+    background-color: #00674b;
     width: 100%;
     margin: 0px;
+    height: 100vh;
     color: #312f32;
     font-family: "DM Sans", sans-serif;
+
+    background: repeating-linear-gradient(45deg,
+            #007C5A,
+            #007C5A 70px,
+            #00674b 70px,
+            #00674b 140px);
 }
 
 /* color pallette:
-#e8e7d5	(232,231,213)
-#312f32	(49,47,50)
-#ee2e2b	(238,46,43)
-#f5812a	(245,129,42)
+#e8e7d5	(232,231,213) beige
+#312f32	(49,47,50) brown
+#ee2e2b	(238,46,43) red
+#f5812a	(245,129,42) orange
 #ffd630 */
+/* 00674b green */
 
 /* navbar */
 
@@ -45,6 +53,13 @@ body {
     font-size: 35px;
 }
 
+#logoCorner {
+    display: flex;
+    flex-direction: row;
+    align-items: first-baseline;
+    gap: 30px;
+}
+
 .navContent>ul {
     display: flex;
     flex-direction: row;
@@ -54,6 +69,13 @@ body {
 
 }
 
+li:hover {
+    cursor: pointer;
+    color: white;
+}
+
+
+
 /* shopping list */
 
 .shoppingListContainer {
@@ -61,17 +83,36 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    /* background-color: black; */
+    /* background-image: url('https://www.brrarch.com/wp-content/uploads/i-LTRQGx8-5K_website-1.jpg'); */
+    background-size: cover;
+    background-position: center;
 }
 
 #shoppingGrid {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: [left] 50% [center] 50% [right];
+    /* flex-direction: row;
     justify-content: center;
-    align-items: center;
-    background-color: #312f32;
+    align-items: center; */
+
+    border-radius: 10px;
+    width: 600px;
     padding: 20px;
     gap: 20px;
+    filter: drop-shadow(10px 10px 10px rgb(0, 0, 0, 20%))
+}
 
+.shoppingHeader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.shoppingHeader>h2 {
+    background-color: #312f32;
+    padding: 20px;
+    color: #e8e7d5;
 }
 
 
@@ -79,20 +120,40 @@ body {
 #shoppingLeft {
     display: flex;
     flex-direction: column;
-    height: 600px;
+    align-items: center;
+    justify-content: flex-start;
+    height: 400px;
+    width: 100%;
     overflow-y: scroll;
-    background-color: white;
+    background-color: #e8e7d5;
+    background-color: #312f32;
+
+}
+
+#instructions {
+    /* width: 200px; */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 20px;
+    font-weight: 300px;
+    padding: 20px;
+
 }
 
 #shoppingRight {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 400px;
+    width: 100%;
 
-    height: 600px;
-    width: 300px;
     overflow-y: scroll;
-
-    background-color: white;
+    background-color: #00674b;
+    background-color: #e8e7d5
 }
 
 
@@ -104,13 +165,66 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 300px;
+    /* display: grid;
+    grid-template-columns: [left]85%[center]15%[right]; */
+    width: 250px;
     align-items: center;
     font-size: 20px;
-    font-weight: 800;
     padding: 10px;
-    padding-left: 50px;
-    border: 2px solid black;
+    padding-left: 25px;
+    padding-right: 25px;
+    background-color: #312f32;
+    color: #e8e7d5;
+    font-weight: 300;
+    border-bottom: 1px solid #e8e7d5;
+    border-bottom: 1px solid #007C5A
+}
+
+#onList {
+    background-color: #1b4636
+}
+
+#onList:hover {
+    background-color: #235A45
+}
+
+#symbol {
+    /* display: flex;
+    flex-direction: row;
+    justify-content: flex-end; */
+
+}
+
+.productContainer:hover {
+    cursor: pointer;
+    background-color: #433f45
+}
+
+.shoppingListContainer>button {
+    margin: 20px;
+
+    height: 70px;
+    width: 200px;
+    font-size: 23px;
+    font-weight: 800;
+    background-color: #312f32;
+    color: #e8e7d5;
+    border: none;
+    border-radius: 10px;
+    filter: drop-shadow(10px 10px 10px rgb(0, 0, 0, 20%))
+}
+
+.shoppingListContainer>button:hover {
+    cursor: pointer;
+    background-color: #433f45
+}
+
+/* #storeLayoutCanvas {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #312f32;
+  padding: 20px;
 }
 
 #storeLayoutCanvas {
@@ -119,4 +233,108 @@ body {
   margin-right: auto;
   background-color: #312f32;
   padding: 20px;
+} */
+
+
+/* grid rendering */
+
+.mazeContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* background-color: #00674b; */
+    /* height: 100vh; */
+
+
+}
+
+.mazeOutline {
+    margin: 50px;
+    background-color: pink;
+    /* height: 500px;
+    width: 500px; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: #312f32;
+
+
+
+}
+
+.box {
+
+    height: 35px;
+    width: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    line-height: 0px;
+    padding: 0px;
+
+
+}
+
+/* .box:hover {
+    background-color: grey;
+} */
+
+#shelf {
+    background-color: #312f32;
+}
+
+#aisle {
+    background-color: #e8e7d5;
+}
+
+#product {
+    /* background-color: #312f32; */
+    /* background-color: orange; */
+    background-color: #312f32;
+    color: #e8e7d5;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700
+}
+
+#path {
+    background-color: #e8e7d5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border-radius: 50px; */
+}
+
+#circle {
+    width: 80%;
+    height: 80%;
+    background-color: #007C5A;
+    border-radius: 5px;
+}
+
+
+#svg {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+svg {
+    width: 100%;
+    height: 100%
 }

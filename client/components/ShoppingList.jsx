@@ -1,18 +1,15 @@
-/*
-  type of component: presentational/container
-  what it does: xxx
-*/
+import React, { useEffect } from 'react';
 
-import React from 'react';
-import ProductEntry from './ProductEntry.jsx';
-import { useDispatch, useSelector } from 'react-redux'
 import Nav from './Nav.jsx';
+import ProductEntry from './ProductEntry.jsx';
 
-// const dispatch = useDispatch()
-// const products = useSelector(state => state.shoppingList.products)
+import { toggleListed, getProducts } from '../slices/shoppingListSlice.js'
+import { useNavigate } from 'react-router-dom';
 
+import { useDispatch, useSelector } from 'react-redux'
 
-
+import { getAllProducts } from '../slices/shoppingListSlice.js';
+import { submitList } from '../slices/mazeSlice.js';
 
 
 
@@ -20,52 +17,81 @@ import Nav from './Nav.jsx';
 export default function ShoppingList() {
 
 
-  // useEffect({
-  // create fetch request to get all products from inventory
-  // .then( dispatch )
 
-  // })
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  let products = useSelector(state => state.shoppingList.products);
+
+  // const userID = useSelector(state=>)
+
+  // console.log('sorted: ', products.length > 0 && products.sort((a, b) => {
+  //   if (a.prod_name > b.prod_name) return 1
+  //   if (a.prod_name < b.prod_name) return -1
+  //   return 0
+  // }))
+
+
+
+  const groceryList = products.filter(product => product.listed === true).map(product => <ProductEntry name={product.prod_name} id={product.prod_id} toggle={toggle} listed={product.listed} />);
+  const productList = products.filter(product => product.listed === false).map(product => <ProductEntry name={product.prod_name} id={product.prod_id} toggle={toggle} listed={product.listed} />);
+
+  //gets products and places them in state
+  useEffect(() => {
+
+    dispatch(getAllProducts(products));
+
+  }, [])
+
+
+
+
+  function submit() {
+
+    if (groceryList.length === 0) return
+
+
+    dispatch(submitList({
+      user_id: 1,
+      productsArr: products.filter(product => product.listed === true)
+    }))
+
+    navigate('/maze')
+
+
+
+
+  }
+
+  function toggle(id) {
+    console.log('id from toggle: ', id)
+
+    dispatch(toggleListed(id))
+  }
 
 
 
 
   return (
     <>
-      <Nav/>
+      <Nav />
       < div className='shoppingListContainer' >
-
-
-        <h1>Shopping List</h1>
-
-
         <div id='shoppingGrid'>
-
-          <div id='shoppingLeft'>
-            <ProductEntry item='Rice' />
-            <ProductEntry item='Chicken' />
-            <ProductEntry item='Tomato' />
-            <ProductEntry item='Red Pepper' />
-            <ProductEntry item='Green Pepper' />
-            <ProductEntry item='Onion' />
-            <ProductEntry item='Ketchup' />
-            <ProductEntry item='Mustard' />
-            <ProductEntry item='Tomato Soup' />
-            <ProductEntry item='Taco Seasoning' />
-            <ProductEntry item='Tortilla Chips' />
-            <ProductEntry item='Pringles' />
-            <ProductEntry item='Marshmellows' />
-            <ProductEntry item='Pop Tarts' />
-            <ProductEntry item='String Cheese' />
-
-
+          <div className='shoppingHeader'>
+            <h2>PRODUCTS</h2>
+            <div id='shoppingLeft'>
+              {productList}
+            </div>
           </div>
-          <div id='shoppingRight'>
-
-
+          <div className='shoppingHeader'>
+            <h2>GROCERY</h2>
+            <div id='shoppingRight'>
+              {groceryList.length > 0 ? groceryList : <div id='instructions'>Select Items From Product List</div>}
+            </div>
           </div>
         </div>
-        <button>Submit</button>
 
+        <button onClick={submit}>SHOP</button>
 
       </div >
     </>
