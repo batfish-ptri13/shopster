@@ -36,19 +36,19 @@ export default function ({ details }) {
                 <>
 
                     <div className='pathRow'>
-                        <div className='lineBox' id='tl'></div>
-                        <div className='lineBox' id='tc'></div>
-                        <div className='lineBox' id='tr'></div>
+                        <div className='lineBox' ></div>
+                        <div className='lineBox' id='t'></div>
+                        <div className='lineBox' ></div>
                     </div>
                     <div className='pathRow'>
-                        <div className='lineBox' id='cl'></div>
-                        <div className='lineBox' id='cc'></div>
-                        <div className='lineBox' id='cr'></div>
+                        <div className='lineBox' id='l'></div>
+                        <div className='lineBox' id='c'></div>
+                        <div className='lineBox' id='r'></div>
                     </div>
                     <div className='pathRow'>
-                        <div className='lineBox' id='bl'></div>
-                        <div className='lineBox' id='bc'></div>
-                        <div className='lineBox' id='br'></div>
+                        <div className='lineBox' ></div>
+                        <div className='lineBox' id='b'></div>
+                        <div className='lineBox'></div>
                     </div>
                 </>
 

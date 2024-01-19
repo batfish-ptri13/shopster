@@ -287,6 +287,14 @@ li:hover {
 
 }
 
+#t,
+#l,
+#c,
+#r,
+#b {
+    background-color: #4B382A;
+}
+
 .pathRow {
     display: flex;
     flex-direction: row;
