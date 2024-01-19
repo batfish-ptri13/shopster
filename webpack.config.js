@@ -1,4 +1,5 @@
 const path = require('path');
+const StylexPlugin = require('@stylexjs/webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -36,7 +37,8 @@ module.exports = {
 
     compress: true,
     proxy: {
-      '/api/*': 'http://localhost:3000'
+      '/api/*': 'http://localhost:3000',
+      '/auth':'http://localhost:3000'
     },
     historyApiFallback: true,
     hot: true
@@ -46,5 +48,24 @@ module.exports = {
     filename: 'index.html',
     template: './client/index.html',
     inject: 'body'
-  })]
-}
+  }),
+  
+  new StylexPlugin({
+    filename: 'styles.[contenthash].css',
+    // get webpack mode and set value for dev
+    dev: process.env.NODE_ENV === 'development',
+    // Use statically generated CSS files and not runtime injected CSS.
+    // Even in development.
+    runtimeInjection: false,
+    // optional. default: 'x'
+    classNamePrefix: 'x',
+    // Required for CSS variable support
+    unstable_moduleResolution: {
+      // type: 'commonJS' | 'haste'
+      // default: 'commonJS'
+      type: 'commonJS',
+      // The absolute path to the root directory of your project
+      rootDir: __dirname,
+    },
+  }),
+  ]};
