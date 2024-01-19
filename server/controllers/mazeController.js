@@ -206,12 +206,17 @@ mazeController.findPathAStar = (req, res, next) => {
 
 
   // copy the shopping list
+  const shoppingListCopy = JSON.parse(JSON.stringify(shoppingList));
 
   // create variable for current node, set to entrance
+  let currentNode = entrance;
   // create variable for list of paths
+  let allPaths = [];
   // create variable for next node
+  let next;
   // create variable for shortest path
-  // create variable for length of path, set to infinity
+  let shortestPath;
+  
 
   // while the list has elements
 
@@ -381,6 +386,10 @@ mazeController.findPathAStar = (req, res, next) => {
 
   res.locals.aStarPath = aStarPath;
   res.locals.layout = layout;
+
+  console.time('astar');
+  console.log(aStar(layout, entrance, target));
+  console.timeEnd('astar');
 
   next();
 
