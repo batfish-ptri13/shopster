@@ -33,8 +33,6 @@ mazeController.findPath = (req, res, next) => {
 
   const shoppingList = res.locals.shoppingList;
 
-  console.log('shopping list--> ', shoppingList);
-
   // Step1. Prepare data
   // layoutForUI stores data in the form of [ [ {} ] ] instead of 0/1
   const layoutForUI = store.layout.map(arr => {
@@ -131,20 +129,46 @@ mazeController.findPath = (req, res, next) => {
   layoutForUI[y][x].type = 3;
   });
 
-  console.log(layoutForUI);
+  // console.log(layoutForUI);
 
   res.locals.layoutWithProductsAndPath = layoutForUI;
   next();
 };
 
+mazeController.mapLayout = (req, res, next) => {
+  const layout = res.locals.layout;
+  const visitedLocations = res.locals.aStarPath;
+  const shoppingList = res.locals.shoppingList;
 
+  // Step1. layoutForUI stores data in the form of [ [ {} ] ] instead of 0/1
+  const layoutForUI = layout.map(arr => {
+    return arr.map(el => {
+      return {type: el};
+    });
+  });
+  
+  // Step2. Update layoutForUI with 2 for products from shoppingList
+  for (let product of shoppingList) {
+    const y = product.prod_location_y;
+    const x = product.prod_location_x;
+    // update layoutForUI with products from shoppingList
+    layoutForUI[y][x] = {
+      type: 2,
+      ...product
+    }
+  };
 
+  // Step3. Update path as 3 on layoutForUI
+  visitedLocations.forEach(location => {
+    const y = location[0];
+    const x = location[1];
+    layoutForUI[y][x].type = 3;
+    });
 
-
-
-
-
-
+  res.locals.layoutWithProductsAndPath = layoutForUI;
+  console.log('MAZE CONTROLLER: UPDATED LAYOUT:  ', res.locals.layoutWithProductsAndPath);
+  next();
+};
 
 
 mazeController.findPathAStar = (req, res, next) => {
@@ -201,6 +225,7 @@ mazeController.findPathAStar = (req, res, next) => {
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
   ];
+  res.locals.layout = layout;
 
   const target = [shoppingList.productsArr[0].prod_location_y, shoppingList.productsArr[0].prod_location_x];
 
@@ -279,7 +304,7 @@ mazeController.findPathAStar = (req, res, next) => {
     const path = [];
     console.log('reconstruct-->', node);
     while (node) {
-      path.unshift([node.x, node.y]);
+      path.unshift([node.y, node.x]);
       node = node.parent;
     }
     return path;
@@ -386,11 +411,7 @@ mazeController.findPathAStar = (req, res, next) => {
   console.log('the A END -------------------');
 
   res.locals.aStarPath = aStarPath;
-  res.locals.layout = layout;
-
-  console.time('astar');
-  console.log(aStar(layout, entrance, target));
-  console.timeEnd('astar');
+  console.log('MAZE CONTROLLER: A-STAR PATH:   ', res.locals.aStarPath);
 
   next();
 
