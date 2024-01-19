@@ -292,7 +292,7 @@ li:hover {
 #c,
 #r,
 #b {
-    background-color: #4B382A;
+    background-color: teal;
 }
 
 .pathRow {
@@ -310,17 +310,7 @@ li:hover {
     /* border: 1px solid black; */
 }
 
-#tc,
-#tl,
-#tr,
-#cl,
-#cc,
-#cr,
-#bl,
-#bc,
-#br {
-    background-color: black;
-}
+
 
 /* .box:hover {
     background-color: grey;
