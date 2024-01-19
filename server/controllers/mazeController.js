@@ -1,3 +1,4 @@
+const { create } = require('@stylexjs/stylex');
 const db = require('../models/shopsterModels.js');
 
 // define function generating an error obj for global error handling here:
@@ -203,6 +204,32 @@ mazeController.findPathAStar = (req, res, next) => {
 
   const target = [shoppingList.productsArr[0].prod_location_y, shoppingList.productsArr[0].prod_location_x];
 
+
+  // copy the shopping list
+
+  // create variable for current node, set to entrance
+  // create variable for list of paths
+  // create variable for next node
+  // create variable for shortest path
+  // create variable for length of path, set to infinity
+
+  // while the list has elements
+
+  // for loop iterate over the list
+  // 
+  // find astar from current to node at i
+  // check length
+  // if shorter than shortest
+  // set new shortest
+  // set next as node at i
+
+  // outside the for loop
+  // push shortest path
+  // set current as next
+  // remove next from list
+
+
+
   layout[target[0]][target[1]] = 2;
 
   // find the neighbors of a given node
@@ -353,6 +380,7 @@ mazeController.findPathAStar = (req, res, next) => {
   console.log('the A END -------------------');
 
   res.locals.aStarPath = aStarPath;
+  res.locals.layout = layout;
 
   next();
 
