@@ -4,7 +4,11 @@ import DOMPurify from 'dompurify';
 
 export default function ({ details }) {
 
-    const { prod_image, type } = details
+    const { prod_image, type, directions } = details
+
+    console.log('details: ', details)
+
+
 
     let id = ''
     let sanitizedSvg;
@@ -37,17 +41,17 @@ export default function ({ details }) {
 
                     <div className='pathRow'>
                         <div className='lineBox' ></div>
-                        <div className='lineBox' id='t'></div>
+                        <div className='lineBox' id={directions.includes('up') && 't'}></div>
                         <div className='lineBox' ></div>
                     </div>
                     <div className='pathRow'>
-                        <div className='lineBox' id='l'></div>
+                        <div className='lineBox' id={directions.includes('left') && 'l'}></div>
                         <div className='lineBox' id='c'></div>
-                        <div className='lineBox' id='r'></div>
+                        <div className='lineBox' id={directions.includes('right') && 'r'}></div>
                     </div>
                     <div className='pathRow'>
                         <div className='lineBox' ></div>
-                        <div className='lineBox' id='b'></div>
+                        <div className='lineBox' id={directions.includes('down') && 'b'}></div>
                         <div className='lineBox'></div>
                     </div>
                 </>

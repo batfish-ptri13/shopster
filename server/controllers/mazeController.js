@@ -128,25 +128,14 @@ mazeController.findPath = (req, res, next) => {
     layoutForUI[y][x].type = 3;
   });
 
-  // console.log(layoutForUI);
-
   res.locals.layoutWithProductsAndPath = layoutForUI;
   next();
 };
 
 mazeController.mapLayout = (req, res, next) => {
   const layout = res.locals.layout;
-
-  
-  const visitedLocations = res.locals.aStarPath.map((location, index) => {
-    return [location[0], location[1], index]
-  });
-
-
-
+  const visitedLocations = res.locals.aStarPath;
   const shoppingList = res.locals.shoppingList;
-
-  console.log("visitedLocations: ", visitedLocations)
 
   // Step1. layoutForUI stores data in the form of [ [ {} ] ] instead of 0/1
   const layoutForUI = layout.map(arr => {
@@ -167,16 +156,36 @@ mazeController.mapLayout = (req, res, next) => {
   };
 
   // Step3. Update path as 3 on layoutForUI
-  visitedLocations.forEach(location => {
-    const y = location[0];
-    const x = location[1];
-    const index = location[2]
-    layoutForUI[y][x].type = 3;
-    layoutForUI[y][x].index = index
-  });
+  for (let i = 0; i < visitedLocations.length; i++) {
+    // adds type 3 for path
+    const yCur = visitedLocations[i][0];
+    const xCur = visitedLocations[i][1];
+    layoutForUI[yCur][xCur].type = 3;
+
+    // adds directions property for path to render line on UI
+    const directions = [];
+    if (visitedLocations[i + 1]) {
+      const yNext = visitedLocations[i + 1][0];
+      const xNext = visitedLocations[i + 1][1];
+      if (yCur > yNext) directions.push('up');
+      else if (yCur < yNext) directions.push('down');
+      if (xCur > xNext) directions.push('left');
+      else if (xCur < xNext) directions.push('right');
+    }
+
+    if (visitedLocations[i - 1]) {
+      const yPrev = visitedLocations[i - 1][0];
+      const xPrev = visitedLocations[i - 1][1];
+      if (yCur > yPrev) directions.push('up');
+      else if (yCur < yPrev) directions.push('down');
+      if (xCur > xPrev) directions.push('left');
+      else if (xCur < xPrev) directions.push('right');
+    }
+
+    layoutForUI[yCur][xCur].directions = directions;
+  }
 
   res.locals.layoutWithProductsAndPath = layoutForUI;
-  console.log('MAZE CONTROLLER: UPDATED LAYOUT:  ', res.locals.layoutWithProductsAndPath);
   next();
 };
 

@@ -15,7 +15,7 @@ const Maze = () => {
 
   const renderArr = useSelector(state => state.maze.layout)
 
-  // console.log('layout: ', renderArr)
+  console.log('layout: ', renderArr)
 
 
 

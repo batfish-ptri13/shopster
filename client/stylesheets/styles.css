@@ -292,7 +292,12 @@ li:hover {
 #c,
 #r,
 #b {
-    background-color: teal;
+    background-color: orange;
+    background: repeating-linear-gradient(45deg,
+            orange,
+            orange 5px,
+            black 5px,
+            black 10px);
 }
 
 .pathRow {
