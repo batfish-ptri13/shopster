@@ -32,7 +32,29 @@ export default function ({ details }) {
         <div className='box' id={id} >
             {type === 2 && <div id='svg' dangerouslySetInnerHTML={{ __html: sanitizedSvg }} />}
 
-            {type === 3 && <div id='circle'></div>}
+            {type === 3 &&
+                <>
+
+                    <div className='pathRow'>
+                        <div className='lineBox' id='tl'></div>
+                        <div className='lineBox' id='tc'></div>
+                        <div className='lineBox' id='tr'></div>
+                    </div>
+                    <div className='pathRow'>
+                        <div className='lineBox' id='cl'></div>
+                        <div className='lineBox' id='cc'></div>
+                        <div className='lineBox' id='cr'></div>
+                    </div>
+                    <div className='pathRow'>
+                        <div className='lineBox' id='bl'></div>
+                        <div className='lineBox' id='bc'></div>
+                        <div className='lineBox' id='br'></div>
+                    </div>
+                </>
+
+
+            }
+
 
         </div >
     )
