@@ -219,19 +219,20 @@ mazeController.findPathAStar = (req, res, next) => {
   
 
   // while the list has elements
-
-  // for loop iterate over the list
-  // 
-  // find astar from current to node at i
-  // check length
-  // if shorter than shortest
-  // set new shortest
-  // set next as node at i
-
-  // outside the for loop
-  // push shortest path
-  // set current as next
-  // remove next from list
+  while(shoppingListCopy.length > 0) {
+    // for loop iterate over the list
+    // 
+    // find astar from current to node at i
+    // check length
+    // if shorter than shortest
+    // set new shortest
+    // set next as node at i
+    
+    // outside the for loop
+    // push shortest path
+    // set current as next
+    // remove next from list
+  }
 
 
 
