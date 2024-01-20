@@ -4,7 +4,11 @@ import DOMPurify from 'dompurify';
 
 export default function ({ details }) {
 
-    const { prod_image, type } = details
+    const { prod_image, type, directions } = details
+
+    console.log('details: ', details)
+
+
 
     let id = ''
     let sanitizedSvg;
@@ -32,7 +36,29 @@ export default function ({ details }) {
         <div className='box' id={id} >
             {type === 2 && <div id='svg' dangerouslySetInnerHTML={{ __html: sanitizedSvg }} />}
 
-            {type === 3 && <div id='circle'></div>}
+            {type === 3 &&
+                <>
+
+                    <div className='pathRow'>
+                        <div className='lineBox' ></div>
+                        <div className='lineBox' id={directions.includes('up') && 't'}></div>
+                        <div className='lineBox' ></div>
+                    </div>
+                    <div className='pathRow'>
+                        <div className='lineBox' id={directions.includes('left') && 'l'}></div>
+                        <div className='lineBox' id='c'></div>
+                        <div className='lineBox' id={directions.includes('right') && 'r'}></div>
+                    </div>
+                    <div className='pathRow'>
+                        <div className='lineBox' ></div>
+                        <div className='lineBox' id={directions.includes('down') && 'b'}></div>
+                        <div className='lineBox'></div>
+                    </div>
+                </>
+
+
+            }
+
 
         </div >
     )
