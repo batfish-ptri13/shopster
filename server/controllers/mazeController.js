@@ -184,7 +184,7 @@ mazeController.mapLayout = (req, res, next) => {
       else if (xCur < xPrev) directions.push('right');
     }
 
-    layoutForUI[yCur][xCur].directions = directions;
+    layoutForUI[yCur][xCur].directions ? layoutForUI[yCur][xCur].directions = layoutForUI[yCur][xCur].directions.concat(directions) : layoutForUI[yCur][xCur].directions = directions
   }
 
   res.locals.layoutWithProductsAndPath = layoutForUI;
