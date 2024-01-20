@@ -2,13 +2,13 @@
 
 import React, { useState } from 'react';
 import * as stylex from '@stylexjs/stylex';
-import { NavLink } from 'react-router-dom';
+import { NavLink,useNavigate  } from 'react-router-dom';
 
 
 export default function UandP(){
   const [userEmail, setUserEmail] = useState('');
   const [userPass, setUserPass] = useState('');
-
+  const navigate = useNavigate();
   async function submitForm(){
     const options = {
       method:'POST',
@@ -18,17 +18,18 @@ export default function UandP(){
       body: JSON.stringify({user_email:userEmail,  user_pass:userPass})
     };
     
-    const html =  await fetch('/auth/login/uandp', options);
+    const response =  await fetch('/auth/login/uandp', options);
 
-    if(html.status === 200){
-      const response = await html.json();
-   
-      console.log(response);
+    if(response.status === 200){
+      const res = await response.json();
+     
+      
+      return navigate("/shoppinglist");
     
 
   
     }else{
-      console.log(await html.json());
+      return navigate('/login');
     }
      
   }

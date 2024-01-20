@@ -24,10 +24,10 @@ export default function Text(){
     const response =  await fetch('/auth/verifytext', options);
     
     if(response.status === 200){
-      const res = await response.json();
+     
      
       
-      return navigate("/");
+      return navigate("/shoppinglist");
     
 
   

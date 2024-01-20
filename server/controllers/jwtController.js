@@ -48,14 +48,14 @@ jwtController.verifyToken = (req, res, next)=>{
   // console.log(result);
   //if true sends true to middleware
   if(result) {
-    res.locals.loggedIn = true;
+    console.log(result);
+    res.locals.user_id = result.user_id;
     return next();
   }else{
   
-    return res.staus(401).send("Redirect to login page");
+    return res.status(401).send({response:"Redirect to login page"});
     
   }
-
 };
 
 
@@ -84,7 +84,7 @@ jwtController.verifyTokenParams = (req, res, next)=>{
     return next();
   }else{
   
-    return res.staus(401).send("Redirect to login page");
+    return res.status(401).send("Redirect to login page");
     
   }
   //return to next middleware

@@ -6,7 +6,7 @@ const router =  express.Router();
 
 const {createUser, verifyUser, getUser, verifyPhone,verifyUserFromText} = require('../controllers/userController.js');
 const {createToken, verifyToken} = require('../controllers/jwtController.js');
-const {setCookie} = require('../controllers/cookieController.js');
+const {setCookie, checkCookie} = require('../controllers/cookieController.js');
 const {createUserPassword,verifyUserPassword, phoneCodeHash, textCodeVerify} = require('../controllers/passwordController.js');
 const { sendTokenEmail } = require('../controllers/jwtController.js');
 const { verifyTokenParams } = require('../controllers/jwtController.js');
@@ -66,8 +66,12 @@ router.use('/phonelink', verifyPhone, phoneCodeHash, sendCodeApi, (req, res) => 
 
 router.use('/verifytext', verifyUserFromText, textCodeVerify, createToken, setCookie, (req, res) => {
 
-  const {user_id} = res.locals.user;
- 
-  return res.status(200).json({user_id});
+  return res.status(200).json(res.locals.user_id);
 });
+
+router.use('/checkCookie', verifyToken, (req, res) => {
+  return res.status(200). json(res.locals.user_id);
+});
+
+
 module.exports = router;

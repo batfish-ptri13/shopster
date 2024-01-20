@@ -1,27 +1,37 @@
 import React, {useEffect} from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
+
 
 const ProtectedRoute = ({children}) => {
   let loggedIn;
-  
-  useEffect(() => {
+  let user_id; 
+
+ 
     
-    fetch('/checkCookie')
-      .then(data => data.json())
-      .then(data => {
-        console.log(data);
-        loggedIn = data.rows[0];
-      })
-      .catch(err => {
-        console.log('Error found in protectedRoute.jsx fetch request: ', err);
-      });
+  fetch('/auth/checkCookie')
+    .then(data => data.json())
+    .then(data => {
+      console.log('ProtectedRoute.jsx: ', data);
 
-  }, []);
+      return user_id = data;
+    })
+    .then(user_id => {
+      console.log('Protected', user_id);
+      if(!user_id) {
+        return <Navigate to='/login' />;
+      }
+      return children;
+    })
+    .catch(err => {
+      console.log('Error found in protectedRoute.jsx fetch request: ', err);
+    });
 
-  if(loggedIn === false) {
-    return <Navigate to='/login' />;
-  }
-  return children;
+ 
+
+  // if(!user_id) {
+  //   return <Navigate to='/login' />;
+  // }
+  // return children;
 };
 
 export default ProtectedRoute;
