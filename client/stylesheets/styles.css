@@ -274,9 +274,10 @@ li:hover {
 
 .box {
 
-    height: 35px;
-    width: 35px;
+    height: 33px;
+    width: 33px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     font-size: 40px;
@@ -285,6 +286,36 @@ li:hover {
 
 
 }
+
+#t,
+#l,
+#c,
+#r,
+#b {
+    background-color: orange;
+    background: repeating-linear-gradient(45deg,
+            orange,
+            orange 5px,
+            black 5px,
+            black 10px);
+}
+
+.pathRow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+}
+
+.lineBox {
+    width: 11px;
+    height: 11px;
+    /* border: 1px solid black; */
+}
+
+
 
 /* .box:hover {
     background-color: grey;

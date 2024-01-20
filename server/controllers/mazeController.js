@@ -38,7 +38,7 @@ mazeController.findPath = (req, res, next) => {
   // layoutForUI stores data in the form of [ [ {} ] ] instead of 0/1
   const layoutForUI = store.layout.map(arr => {
     return arr.map(el => {
-      return {type: el};
+      return { type: el };
     });
   });
 
@@ -125,12 +125,10 @@ mazeController.findPath = (req, res, next) => {
 
   // update path as 3 on layoutForUI
   visitedLocations.forEach(location => {
-  const y = location.split('-')[0];
-  const x = location.split('-')[1];
-  layoutForUI[y][x].type = 3;
+    const y = location.split('-')[0];
+    const x = location.split('-')[1];
+    layoutForUI[y][x].type = 3;
   });
-
-  // console.log(layoutForUI);
 
   res.locals.layoutWithProductsAndPath = layoutForUI;
   next();
@@ -144,10 +142,10 @@ mazeController.mapLayout = (req, res, next) => {
   // Step1. layoutForUI stores data in the form of [ [ {} ] ] instead of 0/1
   const layoutForUI = layout.map(arr => {
     return arr.map(el => {
-      return {type: el};
+      return { type: el };
     });
   });
-  
+
   // Step2. Update layoutForUI with 2 for products from shoppingList
   for (let product of shoppingList) {
     const y = product.prod_location_y;
@@ -160,14 +158,36 @@ mazeController.mapLayout = (req, res, next) => {
   };
 
   // Step3. Update path as 3 on layoutForUI
-  visitedLocations.forEach(location => {
-    const y = location[0];
-    const x = location[1];
-    layoutForUI[y][x].type = 3;
-    });
+  for (let i = 0; i < visitedLocations.length; i++) {
+    // adds type 3 for path
+    const yCur = visitedLocations[i][0];
+    const xCur = visitedLocations[i][1];
+    layoutForUI[yCur][xCur].type = 3;
+
+    // adds directions property for path to render line on UI
+    const directions = [];
+    if (visitedLocations[i + 1]) {
+      const yNext = visitedLocations[i + 1][0];
+      const xNext = visitedLocations[i + 1][1];
+      if (yCur > yNext) directions.push('up');
+      else if (yCur < yNext) directions.push('down');
+      if (xCur > xNext) directions.push('left');
+      else if (xCur < xNext) directions.push('right');
+    }
+
+    if (visitedLocations[i - 1]) {
+      const yPrev = visitedLocations[i - 1][0];
+      const xPrev = visitedLocations[i - 1][1];
+      if (yCur > yPrev) directions.push('up');
+      else if (yCur < yPrev) directions.push('down');
+      if (xCur > xPrev) directions.push('left');
+      else if (xCur < xPrev) directions.push('right');
+    }
+
+    layoutForUI[yCur][xCur].directions = directions;
+  }
 
   res.locals.layoutWithProductsAndPath = layoutForUI;
-  console.log('MAZE CONTROLLER: UPDATED LAYOUT:  ', res.locals.layoutWithProductsAndPath);
   next();
 };
 
@@ -189,37 +209,37 @@ mazeController.mapLayout = (req, res, next) => {
 //=======================================================
 mazeController.findPathAStar = (req, res, next) => {
 
-  const entrance = [16,3];
+  const entrance = [16, 3];
 
   const shoppingList = {
     "user_id": 1,
     "productsArr": [
-        {
-            "prod_id": 23,
-            "prod_name": "beans",
-            "prod_price": "$2.00",
-            "prod_location_x": 12,
-            "prod_location_y": 4,
-            "listed": true
-        },
-        {
-          "prod_id": 23,
-          "prod_name": "beans",
-          "prod_price": "$2.00",
-          "prod_location_x": 16,
-          "prod_location_y": 3,
-          "listed": true
-        },
-        {
-          "prod_id": 23,
-          "prod_name": "beans",
-          "prod_price": "$2.00",
-          "prod_location_x": 1,
-          "prod_location_y": 11,
-          "listed": true
+      {
+        "prod_id": 23,
+        "prod_name": "beans",
+        "prod_price": "$2.00",
+        "prod_location_x": 12,
+        "prod_location_y": 4,
+        "listed": true
+      },
+      {
+        "prod_id": 23,
+        "prod_name": "beans",
+        "prod_price": "$2.00",
+        "prod_location_x": 16,
+        "prod_location_y": 3,
+        "listed": true
+      },
+      {
+        "prod_id": 23,
+        "prod_name": "beans",
+        "prod_price": "$2.00",
+        "prod_location_x": 1,
+        "prod_location_y": 11,
+        "listed": true
       }
     ]
-}
+  }
 
   // create the layout
   const layout = [
@@ -259,21 +279,21 @@ mazeController.findPathAStar = (req, res, next) => {
 
       // console.log('coords--->', [y,x])
       // console.log('contents of neighbor--->', graph[y][x]);
-  
+
       // if the neighbor is within the bounds of the layout, 
       // will have to check the logic that ignores shelf
       if (x >= 0 && x < graph[0].length - 1 && y >= 0 && y < graph.length - 1) {
 
         // if the neighbor is not a shelf
-        if(graph[y][x] === 0 || graph[y][x] === 2) {
+        if (graph[y][x] === 0 || graph[y][x] === 2) {
           // then add it to the list of neighbors
           neighbors.push({ x, y, cost: 1 });
         }
 
       }
-      
+
     }
-    return neighbors;  
+    return neighbors;
   }
 
   // find the f score of a given node
@@ -313,17 +333,17 @@ mazeController.findPathAStar = (req, res, next) => {
     // begin with the entrance as the first in the 'openSet'
     const openSet = [new Node(start[0], start[1], heuristic(start, [target[1], target[0]]))];
     const closedSet = [];
-    
+
     //while there are nodes in the open set
-    while(openSet.length > 0) {
-      
+    while (openSet.length > 0) {
+
       // g score = how far a node is from the start
       // h score = the euclidean distance to the end
       // f score = g + h = totalCost
       // set the current node to the one in the open set with the lowest f score
       const current = openSet.reduce((minNode, node) => (node.totalCost < minNode.totalCost ? node : minNode), openSet[0]);
-      
-      
+
+
       // remove current node from the open set
       openSet.splice(openSet.indexOf(current), 1);
 
@@ -331,7 +351,7 @@ mazeController.findPathAStar = (req, res, next) => {
       // console.log('OPEN SET -->', openSet);
 
       // check if the current node is the target
-      if(current.x === target[1] && current.y === target[0]) {
+      if (current.x === target[1] && current.y === target[0]) {
         console.log('TARGET FOUND!!');
         return reconstructPath(current);
       }
@@ -345,10 +365,10 @@ mazeController.findPathAStar = (req, res, next) => {
       // console.log('NEIGHBORS-->', neighbors);
 
       // iterate over the neighbors and find the one with the lowest totalCost (f score)
-      for(const neighbor of neighbors) {
+      for (const neighbor of neighbors) {
 
         // skip any nodes in the closed set
-        if(closedSet.some(node => node.x === neighbor.x && node.y === neighbor.y)) {
+        if (closedSet.some(node => node.x === neighbor.x && node.y === neighbor.y)) {
           continue;
         }
 
@@ -357,12 +377,12 @@ mazeController.findPathAStar = (req, res, next) => {
 
         // check that the neighbor is not in the open set
         // if it is, set it to openNode
-        const openNode = openSet.find( node => node.x === neighbor.x && node.y === neighbor.y);
+        const openNode = openSet.find(node => node.x === neighbor.x && node.y === neighbor.y);
 
         // also check if the neighbor has a lower tentative cost
-        if(!openNode || tentativeCost < openNode.cost) {
+        if (!openNode || tentativeCost < openNode.cost) {
 
-          
+
           // if !openNode, then add this neighbor to the openSet
           if(!openNode) {
             // console.log('neighbor added -->', neighbor, graph[neighbor.y][neighbor.x]);
@@ -374,16 +394,16 @@ mazeController.findPathAStar = (req, res, next) => {
             openNode.totalCost = tentativeCost + openNode.heuristic
 
           }
-          
+
         }
       }
 
     }
 
 
-      console.log('start--->', start, target);
+    console.log('start--->', start, target);
 
-      // no path exists
+    // no path exists
     return null;
 
   }
