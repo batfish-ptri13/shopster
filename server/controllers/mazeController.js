@@ -249,6 +249,10 @@ mazeController.findPathAStar = (req, res, next) => {
     ]
   }
 
+  // const shoppingList2 = res.locals.shoppingList;
+
+  // console.log("shopping list elena: ", shoppingList2)
+  // console.log('shopping list myles: ', shoppingList)
 
   // create the layout
   const layout = [
@@ -393,7 +397,7 @@ mazeController.findPathAStar = (req, res, next) => {
 
 
           // if !openNode, then add this neighbor to the openSet
-          if(!openNode) {
+          if (!openNode) {
             // console.log('neighbor added -->', neighbor, graph[neighbor.y][neighbor.x]);
             openSet.push(new Node(neighbor.y, neighbor.x, heuristic([neighbor.x, neighbor.y], target), current))
           } else {
@@ -424,10 +428,11 @@ mazeController.findPathAStar = (req, res, next) => {
   // =============================================================
 
   // copy the shopping list
-  let productsArr = JSON.parse(JSON.stringify(shoppingList.productsArr));
+  // let productsArr = JSON.parse(JSON.stringify(shoppingList.productsArr));
+  let productsArr = JSON.parse(JSON.stringify(res.locals.shoppingList));
 
   // create variable for current node, set to entrance
-  let currentNode = {prod_location_y: entrance[0], prod_location_x: entrance[1]};
+  let currentNode = { prod_location_y: entrance[0], prod_location_x: entrance[1] };
   // create variable for list of paths
   let allPaths = [];
   // create variable for nearestNeighbor
@@ -436,19 +441,19 @@ mazeController.findPathAStar = (req, res, next) => {
   let shortestPath;
   // create variable for length of shortest path
   let shortestLength = Infinity;
-  
+
 
   // while the shopping list has elements
-  while(productsArr.length > 0) {
+  while (productsArr.length > 0) {
     // reset the shortest path, length
     shortestPath = null;
-    shortestLength = Infinity; 
+    shortestLength = Infinity;
     console.log('shopping list while -->', productsArr);
     // for loop iterate over the list
-    for(let i = 0; i < productsArr.length; i++) {
-      
+    for (let i = 0; i < productsArr.length; i++) {
+
       let next = productsArr[i];
-      
+
       let target = [next.prod_location_y, next.prod_location_x];
       let currentCoords = [currentNode.prod_location_y, currentNode.prod_location_x];
       // console.log('current coords -->', currentCoords)
@@ -456,7 +461,7 @@ mazeController.findPathAStar = (req, res, next) => {
 
       // set the product in the layout to 2
       layout[target[0]][target[1]] = 2;
-      
+
       // find astar from current to node at i
       let path = aStar(layout, currentCoords, target);
       // console.log('path-->', path);
@@ -466,14 +471,14 @@ mazeController.findPathAStar = (req, res, next) => {
       // if shorter than shortest
       // set new shortest
       // set shortestPath as path
-      if(path.length < shortestLength) {
+      if (path.length < shortestLength) {
         console.log('new shortest--> ', target, path.length);
         shortestLength = path.length;
         shortestPath = path;
         nearestNeighbor = next;
       }
     }
-    
+
     // outside the for loop
     // concat shortest path to the list
     allPaths = allPaths.concat(shortestPath.slice(1, -1));
@@ -490,7 +495,7 @@ mazeController.findPathAStar = (req, res, next) => {
   //   let valid = false
   //   for(product of shoppingList)
   // })
-  
+
   // console.log('the A START -------------------');
   // const aStarPath = aStar(layout, entrance, target);
   // console.log(aStarPath);
