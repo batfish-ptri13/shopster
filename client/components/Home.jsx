@@ -37,7 +37,7 @@ export default function Home() {
 
         {/* <h1> Welcome to Shopster</h1> */}
         <img src='/shopster_lobster_logo_01.png'></img>
-        <button onClick={onClick}>Login!</button>
+        <button onClick={onClick}>LOGIN</button>
 
       </div>
 
