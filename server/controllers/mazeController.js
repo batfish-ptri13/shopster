@@ -311,7 +311,7 @@ mazeController.findPathAStar = (req, res, next) => {
   const aStar = (graph, start, target) => {
 
     // begin with the entrance as the first in the 'openSet'
-    const openSet = [new Node(entrance[0], entrance[1], heuristic(start, [target[1], target[0]]))];
+    const openSet = [new Node(start[0], start[1], heuristic(start, [target[1], target[0]]))];
     const closedSet = [];
     
     //while there are nodes in the open set
