@@ -160,7 +160,23 @@ mazeController.findPathAStar = (req, res, next) => {
             "prod_location_x": 12,
             "prod_location_y": 4,
             "listed": true
-        }
+        },
+        {
+          "prod_id": 23,
+          "prod_name": "beans",
+          "prod_price": "$2.00",
+          "prod_location_x": 16,
+          "prod_location_y": 3,
+          "listed": true
+        },
+        {
+          "prod_id": 23,
+          "prod_name": "beans",
+          "prod_price": "$2.00",
+          "prod_location_x": 1,
+          "prod_location_y": 11,
+          "listed": true
+      }
     ]
 }
 
@@ -187,7 +203,7 @@ mazeController.findPathAStar = (req, res, next) => {
 
   const target = [shoppingList.productsArr[0].prod_location_y, shoppingList.productsArr[0].prod_location_x];
 
-  layout[target[0], target[1]] = 2;
+  layout[target[0]][target[1]] = 2;
 
   // find the neighbors of a given node
   const getNeightbors = (graph, node) => {
@@ -198,15 +214,15 @@ mazeController.findPathAStar = (req, res, next) => {
       const x = node.x + dx;
       const y = node.y + dy;
 
-      console.log('coords--->', [y,x])
-      console.log('contents of neighbor--->', graph[y][x]);
+      // console.log('coords--->', [y,x])
+      // console.log('contents of neighbor--->', graph[y][x]);
   
       // if the neighbor is within the bounds of the layout, 
       // will have to check the logic that ignores shelf
-      if (x >= 0 && x < graph[0].length - 1 && y >= 0 && y < graph.length - 1 && graph[y][x] !== 1) {
+      if (x >= 0 && x < graph[0].length - 1 && y >= 0 && y < graph.length - 1) {
 
         // if the neighbor is not a shelf
-        if(graph[y][x] !== 1) {
+        if(graph[y][x] === 0 || graph[y][x] === 2) {
           // then add it to the list of neighbors
           neighbors.push({ x, y, cost: 1 });
         }
@@ -238,13 +254,14 @@ mazeController.findPathAStar = (req, res, next) => {
 
   // create nodes to track the algos progress
   class Node {
-    constructor(x, y, heuristic) {
-      this.x = x;
+    constructor(y, x, heuristic, parent) {
       this.y = y;
+      this.x = x;
       this.cost = 1;
       this.heuristic = heuristic;
       // heuristic = the node's f score
       this.totalCost = 1 + heuristic;
+      this.parent = parent;
     }
   }
 
@@ -271,7 +288,7 @@ mazeController.findPathAStar = (req, res, next) => {
       // console.log('OPEN SET -->', openSet);
 
       // check if the current node is the target
-      if(current.x === target[0] && current.y === target[1]) {
+      if(current.x === target[1] && current.y === target[0]) {
         console.log('TARGET FOUND!!');
         return reconstructPath(current);
       }
@@ -282,7 +299,7 @@ mazeController.findPathAStar = (req, res, next) => {
       // get the neighboring nodes
       const neighbors = getNeightbors(graph, current);
 
-      console.log('NEIGHBORS-->', neighbors);
+      // console.log('NEIGHBORS-->', neighbors);
 
       // iterate over the neighbors and find the one with the lowest totalCost (f score)
       for(const neighbor of neighbors) {
@@ -305,7 +322,8 @@ mazeController.findPathAStar = (req, res, next) => {
           
           // if !openNode, then add this neighbor to the openSet
           if(!openNode) {
-            openSet.push(new Node(neighbor.x, neighbor.y, heuristic([neighbor.x, neighbor.y], target)))
+            console.log('neighbor added -->', neighbor, graph[neighbor.y][neighbor.x]);
+            openSet.push(new Node(neighbor.y, neighbor.x, heuristic([neighbor.x, neighbor.y], target), current))
           } else {
             // else, set the openNode's cost as the tentative cost
             // and the total cost as the tentative cost + this neighbor's heuristic
@@ -331,6 +349,7 @@ mazeController.findPathAStar = (req, res, next) => {
   console.log('the A START -------------------');
   const aStarPath = aStar(layout, entrance, target);
   console.log(aStarPath);
+  console.log('entrance---> ', entrance, target);
   console.log('the A END -------------------');
 
   res.locals.aStarPath = aStarPath;

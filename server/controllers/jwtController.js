@@ -10,7 +10,7 @@ const jwtController = {};
 
 jwtController.createToken = (req, res, next)=>{
   //get user id and email
-  const user_id = res.locals.user_id;
+  const {user_id} = res.locals.user;
   
   const token = jwt.sign({user_id}, JWT_SECRET);
 
@@ -27,9 +27,18 @@ jwtController.verifyToken = (req, res, next)=>{
   //receives token from request Auth should be on authorization header
   //with the Format of Bearer jwt
   //Split authoriztion into array of [Bearer, jwt]
-  const authArray = (req.headers.authorization).split(" ");
+  const cookieArray = req.headers.cookie.split(";");
+  let token;
+  for (const el of cookieArray){
+    if(el.includes('shopster_token')){
+      const split = el.split("=");
+      token = split[1];
+      break;
+    }
+  }
+  // const authArray = (req.headers.authorization).split(" ");
   //get jwt from array
-  const token = authArray[1];
+  // const token = authArray[1];
   //runs through verify
   const result = jwt.verify( token, JWT_SECRET,(err, decoded)=>{
     
@@ -38,12 +47,12 @@ jwtController.verifyToken = (req, res, next)=>{
   console.log(result);
   //if true sends true to middleware
   if(result) {
-    // res.locals.loggedIn = true;
-    return true;
+    res.locals.loggedIn = true;
+    return next();
   }else{
-  //if false redirects to login page
-    // res.staus(401).send("Redirect to login page");
-    return false;
+  
+    return res.staus(401).send("Redirect to login page");
+    
   }
 
 };

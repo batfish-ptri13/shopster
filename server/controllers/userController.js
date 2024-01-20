@@ -62,13 +62,12 @@ userController.createUser = async (req, res, next)=>{
   const values = [user_name, JSON.stringify(user_email),user_phone, hash];
  
   const person = await db.query(text, values);
-  const person_id = person.rows[0].user_id;
-  console.log(person_id);
-  const userQuery = `SELECT user_id FROM users WHERE user_email= ${user_email};`;
+  
+  // const userQuery = `SELECT user_id FROM users WHERE user_email= ${user_email};`;
 
   //   const userId = await db.query(userQuery);
 
-  res.locals.user_id = person_id;
+  res.locals.user = person.rows[0];
   return next();
   
  
@@ -94,22 +93,23 @@ userController.verifyUser = async (req, res, next)=>{
     
 };
 
-userController.verifyUserPhone = (req, res, next)=>{
 
 
-  //if false send back message and redirect to sign up page
-  
-  //if true - verify the credentials sent and then send back a refreshed token.
-      
-};
+userController.getUser = async (req, res, next)=>{
+  // email and pass from req.body
+  const {user_email, user_pass} = req.body;
 
-userController.verifyUserUandP = (req, res, next)=>{
+  //db query to check if the user exists, if so return user_id and user_hash, res.locals.hashPass
+  const text = 'SELECT * FROM users WHERE user_email= $1';
+  const values = [JSON.stringify(user_email)];
 
-
-  //if false send back message and redirect to sign up page
-  
-  //if true - verify the credentials sent and then send back a refreshed token.
-      
+  const result = await db.query(text, values);
+  console.log(result, "Line 108 User Controller \n");
+  if(!result.rows.length) {
+    return res.status(401).json('User not found, go to sign up page');
+  }
+  res.locals.user = result.rows[0];
+  return next();
 };
 
 

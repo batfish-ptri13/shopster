@@ -4,10 +4,10 @@ const router =  express.Router();
 
 //create route for Authorization
 
-const {createUser, verifyUser} = require('../controllers/userController.js');
-const {createToken} = require('../controllers/jwtController.js');
+const {createUser, verifyUser, getUser} = require('../controllers/userController.js');
+const {createToken, verifyToken} = require('../controllers/jwtController.js');
 const {setCookie} = require('../controllers/cookieController.js');
-const {createUserPassword} = require('../controllers/passwordController.js');
+const {createUserPassword,verifyUserPassword} = require('../controllers/passwordController.js');
 //create user route
 
 // router.use('/signup/:id', createUserPassword,createToken,setCookie,(req, res, next)=>{
@@ -20,24 +20,28 @@ const {createUserPassword} = require('../controllers/passwordController.js');
 
 
 //create a user flow:  check if user exists
-router.use('/signup', verifyUser, createUserPassword, createUser, createToken, setCookie, (req, res, next)=>{
-  
-  const result = {user_id:res.locals.user_id};
+router.use('/signup', verifyUser, createUserPassword, createUser, createToken, setCookie, (req, res)=>{
+  const {user_id} = res.locals.user;
+  const result = {user_id};
   return res.status(200).send(result);
   
 });
 
-router.use('/login', (req,res,next)=>{
-  
- 
+router.use('/login/uandp',getUser, verifyUserPassword, createToken, setCookie, (req, res)=>{
 
-  res.status(200).send("Success");
+  const {user_id} = res.locals.user;
+  const result = {user_id};
+  return res.status(200).send(result);
 
 });
 
-router.use('/sendMagicLink', (req, res, next)=>{
+router.use('/sendMagicLink', (req, res)=>{
   res.status(200).send("Response from Magic Link");
 
+});
+
+router.use('/verifytoken', verifyToken, (req, res )=>{
+  return res.status(200).json(res.locals.loggedIn);
 });
 
 module.exports = router;

@@ -13,11 +13,13 @@
   "license": "ISC",
   "dependencies": {
     "@reduxjs/toolkit": "^2.0.1",
+    "dompurify": "^3.0.8",
     "@stylexjs/stylex": "^0.4.1",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "htmlparser2": "^9.1.0",
     "jsonwebtoken": "^9.0.2",
     "nodemailer": "^6.9.8",
     "pg": "^8.11.3",

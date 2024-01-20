@@ -39,6 +39,16 @@ signupController.createUserPassword = (req, res, next)=>{
 
 };
 
-
+signupController.verifyUserPassword = (req, res, next)=>{
+  const {user_hash} = res.locals.user;
+  const {user_pass} = req.body;
+  bcrypt.compare(user_pass, user_hash, function(err, response) {
+  
+    if(!response){
+      return res.status(401).json('Wrong Pass');
+    }
+    return next();
+  });
+};
 
 module.exports = signupController;
