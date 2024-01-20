@@ -48,7 +48,6 @@ jwtController.verifyToken = (req, res, next)=>{
   // console.log(result);
   //if true sends true to middleware
   if(result) {
-    console.log(result);
     res.locals.user_id = result.user_id;
     return next();
   }else{
@@ -80,7 +79,7 @@ jwtController.verifyTokenParams = (req, res, next)=>{
   console.log(result);
   //if true sends true to middleware
   if(result) {
-    res.locals.loggedIn = true;
+    res.locals.user = result;
     return next();
   }else{
   

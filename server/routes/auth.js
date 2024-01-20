@@ -46,7 +46,8 @@ router.use('/magicLink', getUser,createToken, sendTokenEmail, (req, res)=>{
 
 router.use('/verifytoken/:token', verifyTokenParams, (req, res )=>{
   const {user_id} = res.locals.user;
-  return res.status(200).json({user_id});
+
+  return res.status(200).redirect(`/shoppinglist?id=${user_id}`);
 });
 
 router.use('/verifytoken', verifyToken, (req, res )=>{
