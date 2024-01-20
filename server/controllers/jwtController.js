@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
+const sendMail = require('../auth/mailer.js');
 
 const {JWT_SECRET} = process.env;
 
@@ -44,7 +45,7 @@ jwtController.verifyToken = (req, res, next)=>{
     
     return decoded;
   });
-  console.log(result);
+  // console.log(result);
   //if true sends true to middleware
   if(result) {
     res.locals.loggedIn = true;
@@ -68,14 +69,31 @@ jwtController.verifyTokenBody = (req, res, next)=>{
 //return to next middleware
 };
 jwtController.verifyTokenParams = (req, res, next)=>{
-  const {token} = req.params.token;
+
+  const {token} = req.params;
+
   const result = jwt.verify( token, JWT_SECRET,(err, decoded)=>{
    
     return decoded;
   });
   //add result to res.locals
+  console.log(result);
+  //if true sends true to middleware
+  if(result) {
+    res.locals.loggedIn = true;
+    return next();
+  }else{
   
+    return res.staus(401).send("Redirect to login page");
+    
+  }
   //return to next middleware
+};
+
+jwtController.sendTokenEmail = (req, res, next)=>{
+  const {user_email} = req.body;
+  sendMail(user_email,res.locals.token);
+  return next();
 };
 
 

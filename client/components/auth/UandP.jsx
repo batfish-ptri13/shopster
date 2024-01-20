@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import * as stylex from '@stylexjs/stylex';
-
+import { NavLink } from 'react-router-dom';
 
 
 export default function UandP(){
@@ -50,6 +50,16 @@ export default function UandP(){
       </div>
 
       <button onClick={submitForm} {...stylex.props(styles.submitButton)}> Submit</button>
+
+      <NavLink {...stylex.props(styles.backWrapper)} to={'/login'}> 
+       
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" {...stylex.props(styles.svg)}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18" />
+        </svg>
+
+      
+        <div {...stylex.props(styles.backButton)}>Back</div>
+      </NavLink>
    
     </>
   );
@@ -101,6 +111,22 @@ const styles = stylex.create({
       ':hover':'#312f32',
     }
       
+  },
+  backWrapper:{
+    display:'flex',
+   
+  },
+  backButton:{
+    color:{
+      default:"#e8e7d5",
+      ':hover':'#d5e7e8',
+    },
+    textDecoration:'none'
+  },
+  svg:{
+    height:"4px",
+    width:"4px",
+    currentColor:"white"
   }
     
 });

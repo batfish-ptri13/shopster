@@ -1,12 +1,41 @@
-
-
-import React from 'react';
+import React, {useState} from 'react';
 import * as stylex from '@stylexjs/stylex';
+import { NavLink, useParams,useNavigate } from 'react-router-dom';
 
 
 
-export default function TextCode(){
+export default function Text(){
+  const [userCode, setUserCode] = useState('');
+  const navigate = useNavigate();
  
+  const searchParams = new URLSearchParams(window.location.search);
+  const id = searchParams.get("id");
+  
+  async function submitForm(){
+  
+    const options = {
+      method:'POST',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({text_code:userCode, user_id:id})
+    };
+    
+    const response =  await fetch('/auth/verifytext', options);
+    
+    if(response.status === 200){
+      const res = await response.json();
+     
+      
+      return navigate("/");
+    
+
+  
+    }else{
+      return navigate('/login');
+    }
+     
+  }
   return (
   
     <>
@@ -14,14 +43,14 @@ export default function TextCode(){
       <div {...stylex.props(styles.buttonWrapper)}>
         <div {...stylex.props(styles.wrap)}>
           <div>Enter Code</div>
-          <input {...stylex.props(styles.input)}/> 
+          <input value={userCode} onChange={(e)=>setUserCode(e.target.value)}  {...stylex.props(styles.input)}/> 
         </div>
        
        
           
       </div>
 
-      <button {...stylex.props(styles.submitButton)}> Login</button>
+      <button onClick={submitForm} {...stylex.props(styles.submitButton)}> Get Code</button>
    
     </>
   );
