@@ -1,4 +1,6 @@
+const { create } = require('@stylexjs/stylex');
 const db = require('../models/shopsterModels.js');
+const { current } = require('@reduxjs/toolkit');
 
 // define function generating an error obj for global error handling here:
 
@@ -182,7 +184,7 @@ mazeController.mapLayout = (req, res, next) => {
       else if (xCur < xPrev) directions.push('right');
     }
 
-    layoutForUI[yCur][xCur].directions = directions;
+    layoutForUI[yCur][xCur].directions ? layoutForUI[yCur][xCur].directions = layoutForUI[yCur][xCur].directions.concat(directions) : layoutForUI[yCur][xCur].directions = directions
   }
 
   res.locals.layoutWithProductsAndPath = layoutForUI;
@@ -190,6 +192,21 @@ mazeController.mapLayout = (req, res, next) => {
 };
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//=======================================================
 mazeController.findPathAStar = (req, res, next) => {
 
   const entrance = [16, 3];
@@ -220,9 +237,22 @@ mazeController.findPathAStar = (req, res, next) => {
         "prod_location_x": 1,
         "prod_location_y": 11,
         "listed": true
+      },
+      {
+        "prod_id": 23,
+        "prod_name": "beans",
+        "prod_price": "$2.00",
+        "prod_location_x": 18,
+        "prod_location_y": 15,
+        "listed": true
       }
     ]
   }
+
+  // const shoppingList2 = res.locals.shoppingList;
+
+  // console.log("shopping list elena: ", shoppingList2)
+  // console.log('shopping list myles: ', shoppingList)
 
   // create the layout
   const layout = [
@@ -246,9 +276,10 @@ mazeController.findPathAStar = (req, res, next) => {
   ];
   res.locals.layout = layout;
 
-  const target = [shoppingList.productsArr[0].prod_location_y, shoppingList.productsArr[0].prod_location_x];
+  //const target = [shoppingList.productsArr[0].prod_location_y, shoppingList.productsArr[0].prod_location_x];
 
-  layout[target[0]][target[1]] = 2;
+
+  // layout[target[0]][target[1]] = 2;
 
   // find the neighbors of a given node
   const getNeightbors = (graph, node) => {
@@ -289,7 +320,7 @@ mazeController.findPathAStar = (req, res, next) => {
   // reconstruct the pathway after it's been found
   const reconstructPath = (node) => {
     const path = [];
-    console.log('reconstruct-->', node);
+    // console.log('reconstruct-->', node);
     while (node) {
       path.unshift([node.y, node.x]);
       node = node.parent;
@@ -313,7 +344,7 @@ mazeController.findPathAStar = (req, res, next) => {
   const aStar = (graph, start, target) => {
 
     // begin with the entrance as the first in the 'openSet'
-    const openSet = [new Node(entrance[0], entrance[1], heuristic(start, [target[1], target[0]]))];
+    const openSet = [new Node(start[0], start[1], heuristic(start, [target[1], target[0]]))];
     const closedSet = [];
 
     //while there are nodes in the open set
@@ -367,7 +398,7 @@ mazeController.findPathAStar = (req, res, next) => {
 
           // if !openNode, then add this neighbor to the openSet
           if (!openNode) {
-            console.log('neighbor added -->', neighbor, graph[neighbor.y][neighbor.x]);
+            // console.log('neighbor added -->', neighbor, graph[neighbor.y][neighbor.x]);
             openSet.push(new Node(neighbor.y, neighbor.x, heuristic([neighbor.x, neighbor.y], target), current))
           } else {
             // else, set the openNode's cost as the tentative cost
@@ -391,13 +422,87 @@ mazeController.findPathAStar = (req, res, next) => {
   }
 
 
-  console.log('the A START -------------------');
-  const aStarPath = aStar(layout, entrance, target);
-  console.log(aStarPath);
-  console.log('entrance---> ', entrance, target);
-  console.log('the A END -------------------');
 
-  res.locals.aStarPath = aStarPath;
+  // =============================================================
+  // calculate path to all products in the shopping list
+  // =============================================================
+
+  // copy the shopping list
+  // let productsArr = JSON.parse(JSON.stringify(shoppingList.productsArr));
+  let productsArr = JSON.parse(JSON.stringify(res.locals.shoppingList));
+
+  // create variable for current node, set to entrance
+  let currentNode = { prod_location_y: entrance[0], prod_location_x: entrance[1] };
+  // create variable for list of paths
+  let allPaths = [];
+  // create variable for nearestNeighbor
+  let nearestNeighbor;
+  // create variable for shortest path
+  let shortestPath;
+  // create variable for length of shortest path
+  let shortestLength = Infinity;
+
+
+  // while the shopping list has elements
+  while (productsArr.length > 0) {
+    // reset the shortest path, length
+    shortestPath = null;
+    shortestLength = Infinity;
+    console.log('shopping list while -->', productsArr);
+    // for loop iterate over the list
+    for (let i = 0; i < productsArr.length; i++) {
+
+      let next = productsArr[i];
+
+      let target = [next.prod_location_y, next.prod_location_x];
+      let currentCoords = [currentNode.prod_location_y, currentNode.prod_location_x];
+      // console.log('current coords -->', currentCoords)
+      // console.log('target--> ', target);
+
+      // set the product in the layout to 2
+      layout[target[0]][target[1]] = 2;
+
+      // find astar from current to node at i
+      let path = aStar(layout, currentCoords, target);
+      // console.log('path-->', path);
+      // set the product in layout back to 1
+      layout[target[0]][target[1]] = 1;
+      // check length
+      // if shorter than shortest
+      // set new shortest
+      // set shortestPath as path
+      if (path.length < shortestLength) {
+        console.log('new shortest--> ', target, path.length);
+        shortestLength = path.length;
+        shortestPath = path;
+        nearestNeighbor = next;
+      }
+    }
+
+    // outside the for loop
+    // concat shortest path to the list
+    allPaths = allPaths.concat(shortestPath.slice(1, -1));
+    // set current as nearest neighbor
+    currentNode = nearestNeighbor;
+    // remove nearestNeighbor from list
+    // productsArr.splice(productsArr.indexOf(nearestNeighbor, 1));
+    productsArr = productsArr.filter(prod => prod !== nearestNeighbor);
+  }
+
+  // remove the procuct coords from allpaths
+  // allPaths = allPaths.filter (coords => {
+  //   // make boolean
+  //   let valid = false
+  //   for(product of shoppingList)
+  // })
+
+  // console.log('the A START -------------------');
+  // const aStarPath = aStar(layout, entrance, target);
+  // console.log(aStarPath);
+  // console.log('entrance---> ', entrance, target);
+  // console.log('the A END -------------------');
+
+  res.locals.aStarPath = allPaths;
   console.log('MAZE CONTROLLER: A-STAR PATH:   ', res.locals.aStarPath);
 
   next();

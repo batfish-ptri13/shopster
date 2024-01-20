@@ -292,12 +292,13 @@ li:hover {
 #c,
 #r,
 #b {
-    background-color: orange;
-    background: repeating-linear-gradient(45deg,
+    background-color: #F89880;
+    /* background: repeating-linear-gradient(45deg,
             orange,
-            orange 5px,
-            black 5px,
-            black 10px);
+            orange 5.5px,
+            black 5.5px,
+            black 11px);
+    filter: drop-shadow(10px 10px 10px rgb(0, 0, 0, 20%)) */
 }
 
 .pathRow {
@@ -323,6 +324,7 @@ li:hover {
 
 #shelf {
     background-color: #312f32;
+    filter: drop-shadow(10px 10px 10px rgb(0, 0, 0, 20%))
 }
 
 #aisle {
@@ -338,7 +340,8 @@ li:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: 700
+    font-weight: 700;
+    filter: drop-shadow(10px 10px 10px rgb(0, 0, 0, 20%))
 }
 
 #path {
@@ -346,6 +349,7 @@ li:hover {
     display: flex;
     justify-content: center;
     align-items: center;
+
     /* border-radius: 50px; */
 }
 
