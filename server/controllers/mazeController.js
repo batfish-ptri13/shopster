@@ -237,9 +237,18 @@ mazeController.findPathAStar = (req, res, next) => {
         "prod_location_x": 1,
         "prod_location_y": 11,
         "listed": true
+      },
+      {
+        "prod_id": 23,
+        "prod_name": "beans",
+        "prod_price": "$2.00",
+        "prod_location_x": 18,
+        "prod_location_y": 15,
+        "listed": true
       }
     ]
   }
+
 
   // create the layout
   const layout = [
@@ -415,7 +424,7 @@ mazeController.findPathAStar = (req, res, next) => {
   // =============================================================
 
   // copy the shopping list
-  const productsArr = JSON.parse(JSON.stringify(shoppingList.productsArr));
+  let productsArr = JSON.parse(JSON.stringify(shoppingList.productsArr));
 
   // create variable for current node, set to entrance
   let currentNode = {prod_location_y: entrance[0], prod_location_x: entrance[1]};
@@ -434,7 +443,7 @@ mazeController.findPathAStar = (req, res, next) => {
     // reset the shortest path, length
     shortestPath = null;
     shortestLength = Infinity; 
-    console.log('current while -->', [currentNode.prod_location_y, currentNode.prod_location_x])
+    console.log('shopping list while -->', productsArr);
     // for loop iterate over the list
     for(let i = 0; i < productsArr.length; i++) {
       
@@ -442,8 +451,8 @@ mazeController.findPathAStar = (req, res, next) => {
       
       let target = [next.prod_location_y, next.prod_location_x];
       let currentCoords = [currentNode.prod_location_y, currentNode.prod_location_x];
-      console.log('current coords -->', currentCoords)
-      console.log('target--> ', target);
+      // console.log('current coords -->', currentCoords)
+      // console.log('target--> ', target);
 
       // set the product in the layout to 2
       layout[target[0]][target[1]] = 2;
@@ -465,16 +474,22 @@ mazeController.findPathAStar = (req, res, next) => {
       }
     }
     
-
     // outside the for loop
     // concat shortest path to the list
-    allPaths = allPaths.concat(shortestPath);
+    allPaths = allPaths.concat(shortestPath.slice(1, -1));
     // set current as nearest neighbor
     currentNode = nearestNeighbor;
     // remove nearestNeighbor from list
-    productsArr.splice(productsArr.indexOf(nearestNeighbor, 1));
+    // productsArr.splice(productsArr.indexOf(nearestNeighbor, 1));
+    productsArr = productsArr.filter(prod => prod !== nearestNeighbor);
   }
 
+  // remove the procuct coords from allpaths
+  // allPaths = allPaths.filter (coords => {
+  //   // make boolean
+  //   let valid = false
+  //   for(product of shoppingList)
+  // })
   
   // console.log('the A START -------------------');
   // const aStarPath = aStar(layout, entrance, target);
