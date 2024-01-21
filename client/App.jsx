@@ -11,8 +11,8 @@ import MagicLink from './components/auth/MagicLink.jsx';
 import Text from './components/auth/Text.jsx';
 import TextCode from './components/auth/TextCode.jsx';
 import CreatePassword from './components/auth/CreatePassword.jsx';
-import ProtectedRoute from './components/auth/ProtectedRoute.jsx';
 import Home from './components/Home.jsx';
+import ProtectedRoute from './components/auth/ProtectedRoute.jsx';
 // traditional routing:
 // const App = () => {
 //   return (
