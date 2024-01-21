@@ -10,6 +10,7 @@ const jwtController = {};
 
 
 jwtController.createToken = (req, res, next)=>{
+  
   //get user id and email
   const {user_id} = res.locals.user;
   
@@ -28,8 +29,14 @@ jwtController.verifyToken = (req, res, next)=>{
   //receives token from request Auth should be on authorization header
   //with the Format of Bearer jwt
   //Split authoriztion into array of [Bearer, jwt]
+
+  if(!req.headers.cookie){
+   
+    return res.status(401).json({response:"Redirect"});
+  }
   const cookieArray = req.headers.cookie.split(";");
   let token;
+
   for (const el of cookieArray){
     if(el.includes('shopster_token')){
       const split = el.split("=");
@@ -37,53 +44,57 @@ jwtController.verifyToken = (req, res, next)=>{
       break;
     }
   }
-  // const authArray = (req.headers.authorization).split(" ");
-  //get jwt from array
-  // const token = authArray[1];
-  //runs through verify
+ 
+  if(token === undefined){
+   
+    return res.status(401).json({response:"Redirect"});
+  }
+ 
   const result = jwt.verify( token, JWT_SECRET,(err, decoded)=>{
     
     return decoded;
   });
-  // console.log(result);
+  
   //if true sends true to middleware
   if(result) {
-    res.locals.user_id = result.user_id;
+   
+    res.locals.user = result;
     return next();
   }else{
   
-    return res.status(401).send({response:"Redirect to login page"});
+    return res.status(401).json({response:"Redirect"});
     
   }
 };
 
 
-jwtController.verifyTokenBody = (req, res, next)=>{
-  const {token} = req.body;
-  const result = jwt.verify( token, JWT_SECRET,(err, decoded)=>{
-    return decoded;
-  });
-  //add result to res.locals
+// jwtController.verifyTokenBody = (req, res, next)=>{
+//   const {token} = req.body;
+//   const result = jwt.verify( token, JWT_SECRET,(err, decoded)=>{
+//     return decoded;
+//   });
+//   //add result to res.locals
 
-//return to next middleware
-};
+// //return to next middleware
+// };
 jwtController.verifyTokenParams = (req, res, next)=>{
 
   const {token} = req.params;
+  res.locals.token = token;
 
   const result = jwt.verify( token, JWT_SECRET,(err, decoded)=>{
    
     return decoded;
   });
   //add result to res.locals
-  console.log(result);
+ 
   //if true sends true to middleware
   if(result) {
     res.locals.user = result;
     return next();
   }else{
   
-    return res.status(401).send("Redirect to login page");
+    return res.status(401).redirect('/login');
     
   }
   //return to next middleware

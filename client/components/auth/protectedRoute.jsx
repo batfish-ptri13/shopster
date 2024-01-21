@@ -1,38 +1,33 @@
-import React, {useEffect} from "react";
-import { Navigate, Outlet } from "react-router-dom";
+import React, {Suspense, useEffect, useState} from "react";
+import { Navigate, Outlet, useNavigate } from "react-router-dom";
 
 
-const ProtectedRoute = ({children}) => {
-  let loggedIn;
-  let user_id; 
-
- 
-    
-  fetch('/auth/checkCookie')
-    .then(data => data.json())
-    .then(data => {
-      console.log('ProtectedRoute.jsx: ', data);
-
-      return user_id = data;
-    })
-    .then(user_id => {
-      console.log('Protected', user_id);
-      if(!user_id) {
-        return <Navigate to='/login' />;
+const ProtectedRoute =  () => {
+  const [loggedIn, setLoggedIn] = useState();
+  const navigate = useNavigate();
+  useEffect(()=>{
+    async function checkToken(){
+      const userQuery = await fetch('/auth/checkCookie');
+      console.log(userQuery.status);
+      if(userQuery.status === 401){
+        navigate('/login');
       }
-      return children;
-    })
-    .catch(err => {
-      console.log('Error found in protectedRoute.jsx fetch request: ', err);
-    });
+      const user = await userQuery.json();
+      
+      setLoggedIn(true);
+      
+    }
+    checkToken();
+  },[loggedIn]);
 
- 
-
-  // if(!user_id) {
-  //   return <Navigate to='/login' />;
-  // }
-  // return children;
+  return(
+    <Suspense fallback={<Loading />}>
+      {loggedIn ? <Outlet/> : <></>}
+    </Suspense>
+  );
 };
-
+function Loading() {
+  return <h2>🌀 Loading...</h2>;
+}
 export default ProtectedRoute;
 

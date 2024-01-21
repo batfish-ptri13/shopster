@@ -6,7 +6,7 @@ const router =  express.Router();
 
 const {createUser, verifyUser, getUser, verifyPhone,verifyUserFromText} = require('../controllers/userController.js');
 const {createToken, verifyToken} = require('../controllers/jwtController.js');
-const {setCookie, checkCookie} = require('../controllers/cookieController.js');
+const {setCookie, checkCookie, clearCookie} = require('../controllers/cookieController.js');
 const {createUserPassword,verifyUserPassword, phoneCodeHash, textCodeVerify} = require('../controllers/passwordController.js');
 const { sendTokenEmail } = require('../controllers/jwtController.js');
 const { verifyTokenParams } = require('../controllers/jwtController.js');
@@ -44,7 +44,7 @@ router.use('/magicLink', getUser,createToken, sendTokenEmail, (req, res)=>{
 
 });
 
-router.use('/verifytoken/:token', verifyTokenParams, (req, res )=>{
+router.use('/verifytoken/:token', verifyTokenParams, setCookie, (req, res )=>{
   const {user_id} = res.locals.user;
 
   return res.status(200).redirect(`/shoppinglist?id=${user_id}`);
@@ -52,6 +52,10 @@ router.use('/verifytoken/:token', verifyTokenParams, (req, res )=>{
 
 router.use('/verifytoken', verifyToken, (req, res )=>{
   return res.status(200).json(res.locals.loggedIn);
+});
+
+router.use('/logout', clearCookie, (req, res, next)=>{
+  return res.status(200).redirect('/');
 });
 
 
@@ -71,7 +75,9 @@ router.use('/verifytext', verifyUserFromText, textCodeVerify, createToken, setCo
 });
 
 router.use('/checkCookie', verifyToken, (req, res) => {
-  return res.status(200). json(res.locals.user_id);
+  const {user_id} = res.locals.user;
+
+  return res.status(200). json({user_id});
 });
 
 

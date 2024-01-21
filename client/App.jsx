@@ -11,7 +11,7 @@ import MagicLink from './components/auth/MagicLink.jsx';
 import Text from './components/auth/Text.jsx';
 import TextCode from './components/auth/TextCode.jsx';
 import CreatePassword from './components/auth/CreatePassword.jsx';
-import ProtectedRoute from './components/auth/protectedRoute.jsx';
+import ProtectedRoute from './components/auth/ProtectedRoute.jsx';
 import Home from './components/Home.jsx';
 // traditional routing:
 // const App = () => {
@@ -28,9 +28,10 @@ const App = () => {
         
      
         <Route path='/' element={<Home/>}/>
-      
-        <Route path='/shoppinglist' element={<ShoppingList />} />
-        <Route path='/maze' element={< Maze />} />
+        <Route element={<ProtectedRoute/>}>
+          <Route path='/shoppinglist' element={<ShoppingList />} />
+          <Route path='/maze' element={< Maze />} />
+        </Route>
         <Route element={<AuthLayout/>}> 
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<SignUp />} />

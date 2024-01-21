@@ -15,17 +15,17 @@ listController.getAll = (req, res, next) => {
 
       //now sorts alphabetically
       res.locals.products = data.rows.sort((a, b) => {
-        console.log('a, b', a, b)
-        if (a.prod_name.toLowerCase() > b.prod_name.toLowerCase()) return 1
-        if (a.prod_name.toLowerCase() < b.prod_name.toLowerCase()) return -1
-        return 0
+        // console.log('a, b', a, b)
+        if (a.prod_name.toLowerCase() > b.prod_name.toLowerCase()) return 1;
+        if (a.prod_name.toLowerCase() < b.prod_name.toLowerCase()) return -1;
+        return 0;
       });
       next();
     })
     .catch(err => {
-      console.log('line 16 listController.js', err);
+      // console.log('line 16 listController.js', err);
       next();
-    })
+    });
 };
 
 //submit list button on shoppingList.jsx
@@ -33,10 +33,10 @@ listController.getAll = (req, res, next) => {
 // 2nd login- user gets previous shopping, makes changes, hit submit --> conditional DELETE FROM shoppingList WHERE user_id === currUserId, INSERT all new values
 listController.submitList = (req, res, next) => {
 
-  console.log('submitList req.body: ,', req.body)
+  // console.log('submitList req.body: ,', req.body)
   const { user_id, productsArr } = req.body;
 
-  let queryStr = `DELETE FROM shopping_list WHERE sl_user_id = ${user_id};`
+  let queryStr = `DELETE FROM shopping_list WHERE sl_user_id = ${user_id};`;
   // loop to call query and insert into for each product in array
   productsArr.forEach(prodObj => {
 
@@ -54,20 +54,20 @@ listController.submitList = (req, res, next) => {
         ${req.body.user_id},
         ${prodObj.prod_id}
       );
-    `
+    `;
   });
   // Insert query to add record to shopping_list table
 
 
-  console.log('submitList controller queryStr after loop: ', queryStr);
+  // console.log('submitList controller queryStr after loop: ', queryStr);
   db.query(queryStr)
     .then(data => {
       res.locals.shoppingList = productsArr;
       next();
     })
     .catch(err => {
-      return console.log('Error found in Insert query, productsArr.forEach, listController.submitList: ', err)
-    })
+      return console.log('Error found in Insert query, productsArr.forEach, listController.submitList: ', err);
+    });
 
 };
 
