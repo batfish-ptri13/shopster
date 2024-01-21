@@ -50,7 +50,7 @@ export default function Text(){
           
       </div>
 
-      <button onClick={submitForm} {...stylex.props(styles.submitButton)}> Get Code</button>
+      <button onClick={submitForm} {...stylex.props(styles.submitButton)}> Enter Code</button>
    
     </>
   );
