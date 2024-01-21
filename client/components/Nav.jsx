@@ -7,7 +7,7 @@ export default function Nav() {
 
   function handleClick(event) {
     if (event.target.innerText === 'Store Map') navigate('/maze');
-    else if (event.target.innerText === 'Shopping List') navigate('/');
+    else if (event.target.innerText === 'Shopping List') navigate('/shoppinglist');
   }
 
   return (
