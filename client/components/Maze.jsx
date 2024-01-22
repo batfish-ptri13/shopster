@@ -5,17 +5,17 @@
 
 import React, { useRef, useEffect } from 'react';
 import Nav from './Nav.jsx';
-import Square from './Square.jsx'
-import Row from './Row.jsx'
+import Square from './Square.jsx';
+import Row from './Row.jsx';
 
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
 
 
 const Maze = () => {
 
-  const renderArr = useSelector(state => state.maze.layout)
+  const renderArr = useSelector(state => state.maze.layout);
 
-  console.log('layout: ', renderArr)
+  // console.log('layout: ', renderArr)
 
 
 
@@ -48,8 +48,8 @@ const Maze = () => {
     return (
       <Row row={row} />
 
-    )
-  })
+    );
+  });
 
 
 
@@ -65,7 +65,7 @@ const Maze = () => {
         </div>
       </div>
     </div>
-  )
+  );
 };
 
 export default Maze;

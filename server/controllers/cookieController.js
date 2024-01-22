@@ -14,6 +14,10 @@ cookieController.setCookie = function(req, res, next){
 };
 
 
+cookieController.clearCookie = function(req, res, next){
+  res.cookie('shopster_token' );
+  return next();
+};
 
 
 module.exports = cookieController;
