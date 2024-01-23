@@ -1,13 +1,37 @@
 
 
-import React from 'react';
+import React, {useState} from 'react';
 import * as stylex from '@stylexjs/stylex';
 import { NavLink } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
 
 
 export default function Text(){
- 
+  const [userPhone, setUserPhone] = useState('');
+  const navigate = useNavigate();
+  async function submitForm(){
+    const options = {
+      method:'POST',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({user_phone:userPhone})
+    };
+    
+    const response =  await fetch('/auth/phonelink', options);
+    
+    if(response.status === 200){
+      const res = await response.json();
+   
+      return navigate(`/textcode?id=${res.user_id}`);
+    
+
+  
+    }else{
+      console.log(await response.json());
+    }
+     
+  }
   return (
   
     <>
@@ -16,14 +40,14 @@ export default function Text(){
       <div {...stylex.props(styles.buttonWrapper)}>
         <div {...stylex.props(styles.wrap)}>
           <div>Phone Number</div>
-          <input {...stylex.props(styles.input)}/> 
+          <input value={userPhone} onChange={(e)=>setUserPhone(e.target.value)}  {...stylex.props(styles.input)}/> 
         </div>
        
        
           
      
         <div >
-          <button {...stylex.props(styles.submitButton)}> Get Code</button>
+          <button onClick={submitForm} {...stylex.props(styles.submitButton)}> Get Code</button>
         </div>
       </div>
       <NavLink {...stylex.props(styles.backWrapper)} to={'/login'}> 

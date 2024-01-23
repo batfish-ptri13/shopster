@@ -39,33 +39,15 @@ async function verifyUser(email, phone) {
 //Creat user in database
 userController.createUser = async (req, res, next)=>{
 //check if user exists in the database
-  //hash 
-  //name, email, phone from req.body
+
   const {user_name, user_email, user_phone} = req.body;
   const hash = res.locals.hash;
   JSON.stringify(hash);
-  console.log(user_name, user_email,user_phone, "Line 47");
-  //create the user in database and return the id, name, and email
-  //   const query = `INSERT INTO users (
-  //       user_name,
-  //       user_email,
-  //       user_phone,
-  //       user_hash
-  //     ) VALUES (
-  //       ${user_name},
-  //       ${user_email},
-  //       ${user_phone},
-  //       ${JSON.stringify(hash)}
-  //     );`;
-    
+
   const text = 'INSERT INTO users(user_name, user_email, user_phone, user_hash) VALUES($1, $2, $3, $4) RETURNING *';
   const values = [user_name, JSON.stringify(user_email),user_phone, hash];
  
   const person = await db.query(text, values);
-  
-  // const userQuery = `SELECT user_id FROM users WHERE user_email= ${user_email};`;
-
-  //   const userId = await db.query(userQuery);
 
   res.locals.user = person.rows[0];
   return next();
@@ -93,6 +75,32 @@ userController.verifyUser = async (req, res, next)=>{
     
 };
 
+userController.verifyPhone = async (req, res, next) => {
+  
+  const {user_phone} = req.body;
+
+  console.log('userController verifyPhone user_phone type: ', typeof user_phone);
+  
+  const phoneQuery = {
+    text: `SELECT * FROM users WHERE user_phone = $1;`,
+    values: [user_phone],
+  };
+  
+  let userPhone = await db.query(phoneQuery);
+ 
+  userPhone = userPhone.rows[0];
+  
+  if (!userPhone.user_phone.length){
+    return res.status(401).json('Phone number is not connected to an account');
+  } else {
+    res.locals.user = userPhone;
+    next();
+  }
+
+};
+
+
+
 
 
 userController.getUser = async (req, res, next)=>{
@@ -112,6 +120,27 @@ userController.getUser = async (req, res, next)=>{
   return next();
 };
 
+userController.verifyUserFromText = async (req, res, next) => {
+  
+  const {user_id} = req.body;
 
+  
+  const userQuery = {
+    text: `SELECT * FROM users WHERE user_id = $1;`,
+    values: [user_id],
+  };
+  
+  const userId = await db.query(userQuery);
+ 
+  const user = userId.rows[0];
+  
+  if (!user){
+    return res.status(401).json('Phone number is not connected to an account');
+  } else {
+    res.locals.user = user;
+    next();
+  }
+
+};
 
 module.exports = userController;
